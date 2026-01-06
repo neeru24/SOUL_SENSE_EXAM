@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import messagebox, scrolledtext
 from datetime import datetime
 import re
+from analytics_dashboard import AnalyticsDashboard
 
 class JournalFeature:
     def __init__(self, parent_root):
@@ -62,6 +63,10 @@ class JournalFeature:
         tk.Button(button_frame, text="View Past Entries", 
                  command=self.view_past_entries, 
                  font=("Arial", 12)).pack(side=tk.LEFT, padx=5)
+        
+        tk.Button(button_frame, text="📊 Dashboard", 
+                 command=self.open_dashboard, 
+                 font=("Arial", 12), bg="#FF9800", fg="white").pack(side=tk.LEFT, padx=5)
         
         tk.Button(button_frame, text="Close", 
                  command=self.journal_window.destroy, 
@@ -223,3 +228,8 @@ class JournalFeature:
         tk.Button(entries_window, text="Close", 
                  command=entries_window.destroy, 
                  font=("Arial", 12)).pack(pady=10)
+    
+    def open_dashboard(self):
+        """Open analytics dashboard"""
+        dashboard = AnalyticsDashboard(self.journal_window, self.username)
+        dashboard.open_dashboard()

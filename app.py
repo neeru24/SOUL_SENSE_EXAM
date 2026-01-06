@@ -1,6 +1,8 @@
 import sqlite3
 import tkinter as tk
 from tkinter import messagebox
+from journal_feature import JournalFeature
+from analytics_dashboard import AnalyticsDashboard
 
 #DATABASE SETUP
 conn = sqlite3.connect("soulsense_db")
@@ -14,6 +16,13 @@ CREATE TABLE IF NOT EXISTS scores (
     total_score INTEGER
 )
 """)
+
+# Add age column if it doesn't exist
+try:
+    cursor.execute("ALTER TABLE scores ADD COLUMN age INTEGER")
+except sqlite3.OperationalError:
+    pass  # Column already exists
+
 conn.commit()
 
 #QUESTIONS
@@ -28,7 +37,7 @@ questions = [
 #USER DETAILS WINDOW
 root = tk.Tk()
 root.title("SoulSense - User Details")
-root.geometry("450x330")
+root.geometry("450x380")
 root.resizable(False, False)
 
 username = tk.StringVar()
@@ -62,7 +71,30 @@ tk.Button(
     fg="white",
     font=("Arial", 14, "bold"),
     width=20
-).pack(pady=25)
+).pack(pady=15)
+
+# Initialize features
+journal_feature = JournalFeature(root)
+
+tk.Button(
+    root,
+    text="📝 Open Journal",
+    command=lambda: journal_feature.open_journal_window(username.get() or "Guest"),
+    bg="#2196F3",
+    fg="white",
+    font=("Arial", 12),
+    width=20
+).pack(pady=5)
+
+tk.Button(
+    root,
+    text="📊 View Dashboard",
+    command=lambda: AnalyticsDashboard(root, username.get() or "Guest").open_dashboard(),
+    bg="#FF9800",
+    fg="white",
+    font=("Arial", 12),
+    width=20
+).pack(pady=5)
 
 #QUIZ WINDOW
 def start_quiz(username, age):
@@ -130,11 +162,18 @@ def start_quiz(username, age):
             )
             conn.commit()
 
-            messagebox.showinfo(
+            # Show completion message with options
+            result = messagebox.askyesno(
                 "Completed",
-                f"Thank you {username}!\nYour Emotional Score: {score}"
+                f"Thank you {username}!\nYour EQ Score: {score}\n\nView your dashboard?"
             )
-            quiz.destroy()
+            
+            if result:
+                quiz.destroy()
+                dashboard = AnalyticsDashboard(None, username)
+                dashboard.open_dashboard()
+            else:
+                quiz.destroy()
             conn.close()
 
     tk.Button(
