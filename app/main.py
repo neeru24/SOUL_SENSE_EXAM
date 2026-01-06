@@ -208,7 +208,7 @@
 
 
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import messagebox ,ttk  #imported the ttk
 import logging
 import sys
 from datetime import datetime
@@ -284,6 +284,7 @@ class SoulSenseApp:
         self.age_group = None
 
         self.current_question = 0
+        self.total_questions = len(questions) #length of the questions
         self.responses = []
 
         self.create_username_screen()
@@ -348,6 +349,27 @@ class SoulSenseApp:
 
     def show_question(self):
         self.clear_screen()
+        # -------- Progress Bar --------
+        progress_frame = tk.Frame(self.root)
+        progress_frame.pack(pady=5)
+
+        self.progress = ttk.Progressbar(
+            progress_frame,
+            orient="horizontal",
+            length=300,
+            mode="determinate",
+            maximum=self.total_questions,
+            value=self.current_question
+        )
+        self.progress.pack()
+
+        self.progress_label = tk.Label(
+            progress_frame,
+            text=f"{self.current_question}/{self.total_questions} Completed",
+            font=("Arial", 10)
+        )
+        self.progress_label.pack()
+
 
         if self.current_question >= len(questions):
             self.finish_test()
