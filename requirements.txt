@@ -16,4 +16,8 @@ numpy>=1.21.0
 # Testing (optional)
 pytest>=6.0.0
 
+# Database Layer
+sqlalchemy>=2.0
+alembic>=1.13
+
 # Python 3.6+ recommended

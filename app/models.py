@@ -1,94 +1,82 @@
-import logging
+from sqlalchemy import Column, Integer, String, Text, Float, DateTime, ForeignKey, Boolean
+from sqlalchemy.orm import declarative_base, relationship
+from datetime import datetime
 
-def ensure_scores_schema(cursor):
-    """
-    Ensure scores table has required columns.
-    Adds 'age' column if missing for backward compatibility.
-    Adds 'detailed_age_group' column if missing for enhanced analytics.
-    """
-    cursor.execute("PRAGMA table_info(scores)")
-    cols = [c[1] for c in cursor.fetchall()]
+Base = declarative_base()
+
+class User(Base):
+    __tablename__ = 'users'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    username = Column(String, unique=True, nullable=False)
+    password_hash = Column(String, nullable=False)
+    created_at = Column(String, default=lambda: datetime.utcnow().isoformat())
+    last_login = Column(String, nullable=True)
+
+    # Relationships
+    scores = relationship("Score", back_populates="user")
+    responses = relationship("Response", back_populates="user")
+
+class Score(Base):
+    __tablename__ = 'scores'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    username = Column(String)
+    total_score = Column(Integer)
+    age = Column(Integer)
+    detailed_age_group = Column(String)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=True)
+
+    user = relationship("User", back_populates="scores")
+
+class Response(Base):
+    __tablename__ = 'responses'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    username = Column(String)
+    question_id = Column(Integer)
+    response_value = Column(Integer)
+    age_group = Column(String)
+    detailed_age_group = Column(String)
+    timestamp = Column(String, default=lambda: datetime.utcnow().isoformat())
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=True)
+
+    user = relationship("User", back_populates="responses")
+
+class QuestionCategory(Base):
+    __tablename__ = 'question_category'
     
-    if cols and "age" not in cols:
-        logging.info("Migrating scores table: adding age column")
-        cursor.execute("ALTER TABLE scores ADD COLUMN age INTEGER")
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String, nullable=False)
+    description = Column(Text)
+
+class Question(Base):
+    __tablename__ = 'question_bank'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    question_text = Column(Text, nullable=False)
+    category_id = Column(Integer, default=0)
+    difficulty = Column(Integer, default=1)
+    min_age = Column(Integer, default=0)
+    max_age = Column(Integer, default=120)
+    weight = Column(Float, default=1.0)
+    is_active = Column(Integer, default=1)
+    created_at = Column(String, default=lambda: datetime.utcnow().isoformat())
+
+class QuestionMetadata(Base):
+    __tablename__ = 'question_metadata'
     
-    if cols and "detailed_age_group" not in cols:
-        logging.info("Migrating scores table: adding detailed_age_group column")
-        cursor.execute("ALTER TABLE scores ADD COLUMN detailed_age_group TEXT")
-    
-    # Add user_id column for linking scores to authenticated users
-    if cols and "user_id" not in cols:
-        logging.info("Migrating scores table: adding user_id column")
-        cursor.execute("ALTER TABLE scores ADD COLUMN user_id INTEGER")
+    question_id = Column(Integer, primary_key=True) # Assuming 1:1 map or just metadata
+    source = Column(String)
+    version = Column(String)
+    tags = Column(String)
 
+class JournalEntry(Base):
+    __tablename__ = 'journal_entries'
 
-def ensure_responses_schema(cursor):
-    """
-    Ensure responses table has required columns.
-    Maintains backward-compatible 'age_group' column.
-    Adds 'detailed_age_group' column if missing for enhanced analytics.
-    """
-    cursor.execute("PRAGMA table_info(responses)")
-    cols = [c[1] for c in cursor.fetchall()]
-
-    if not cols:
-        cursor.execute("""
-        CREATE TABLE responses (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT,
-            question_id INTEGER,
-            response_value INTEGER,
-            age_group TEXT,
-            detailed_age_group TEXT,
-            timestamp TEXT
-        )
-        """)
-    else:
-        required = {
-            "username": "TEXT",
-            "question_id": "INTEGER",
-            "response_value": "INTEGER",
-            "age_group": "TEXT",
-            "timestamp": "TEXT"
-        }
-        for col, t in required.items():
-            if col not in cols:
-                cursor.execute(f"ALTER TABLE responses ADD COLUMN {col} {t}")
-        
-        # Add detailed_age_group for enhanced analytics
-        if "detailed_age_group" not in cols:
-            logging.info("Migrating responses table: adding detailed_age_group column")
-            cursor.execute("ALTER TABLE responses ADD COLUMN detailed_age_group TEXT")
-
-    # Add user_id column for linking responses to authenticated users
-    cursor.execute("PRAGMA table_info(responses)")
-    cols = [c[1] for c in cursor.fetchall()]
-    if "user_id" not in cols:
-        logging.info("Migrating responses table: adding user_id column")
-        cursor.execute("ALTER TABLE responses ADD COLUMN user_id INTEGER")
-
-
-def ensure_question_bank_schema(cursor):
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS question_bank (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        question_text TEXT NOT NULL,
-        is_active INTEGER DEFAULT 1,
-        created_at TEXT
-    )
-    """)
-
-def ensure_users_schema(cursor):
-    """
-    Ensure users table exists for authentication.
-    """
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        username TEXT UNIQUE NOT NULL,
-        password_hash TEXT NOT NULL,
-        created_at TEXT NOT NULL,
-        last_login TEXT
-    )
-    """)
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    username = Column(String)
+    entry_date = Column(String, default=lambda: datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S"))
+    content = Column(Text)
+    sentiment_score = Column(Float)
+    emotional_patterns = Column(Text)

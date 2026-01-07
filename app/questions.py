@@ -1,50 +1,36 @@
-
-from app.db import get_connection
-
+from app.db import get_session
+from app.models import Question
 
 def load_questions(
     age: int | str | None = None,
     db_path: str | None = None
 ):
     """
-    Load questions from DB.
-    Supports backward-compatible call:
-        load_questions(db_path)
-    And new usage:
-        load_questions(age=25)
-        load_questions(age=25, db_path=...)
+    Load questions from DB using ORM.
+    Returns list of (id, question_text) tuples.
     """
-
-    # ---------------- BACKWARD COMPAT ----------------
+    # Backward compat: ignore db_path as we use centralized session
     if isinstance(age, str) and db_path is None:
-        db_path = age
         age = None
-
-    conn = get_connection(db_path)
-    cursor = conn.cursor()
-
-    if age is None:
-        cursor.execute("""
-            SELECT id, question_text
-            FROM question_bank
-            WHERE is_active = 1
-            ORDER BY id
-        """)
-    else:
-        cursor.execute("""
-            SELECT id, question_text
-            FROM question_bank
-            WHERE is_active = 1
-              AND min_age <= ?
-              AND max_age >= ?
-            ORDER BY id
-        """, (age, age))
-
-    rows = cursor.fetchall()
-    conn.close()
-
-    if not rows:
-        raise RuntimeError("No questions found in database")
-
-    return rows
-
+        
+    session = get_session()
+    try:
+        query = session.query(Question).filter(Question.is_active == 1)
+        
+        if age is not None:
+            query = query.filter(Question.min_age <= age, Question.max_age >= age)
+            
+        questions = query.order_by(Question.id).all()
+        
+        # Return as list of tuples to match legacy signature
+        rows = [(q.id, q.question_text) for q in questions]
+        
+        if not rows:
+            # Fallback: if strict age filtering returns nothing, maybe return all?
+            # Or keep raising error as before.
+            # Original behavior raised RuntimeError
+            raise RuntimeError("No questions found in database")
+            
+        return rows
+    finally:
+        session.close()

@@ -9,13 +9,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
-from app.db import get_connection
-from app.models import (
-    ensure_scores_schema,
-    ensure_responses_schema,
-    ensure_question_bank_schema,
-    ensure_users_schema
-)
+from app.db import get_session
+from app.models import Score, Response
 from app.questions import load_questions
 from app.utils import compute_age_group
 from app.auth import AuthManager
@@ -29,26 +24,7 @@ logging.basicConfig(
 
 logging.info("Application started")
 
-# ---------------- DB INIT ----------------
-conn = get_connection()
-cursor = conn.cursor()
-
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS scores (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT,
-    total_score INTEGER,
-    age INTEGER
-)
-""")
-
-ensure_scores_schema(cursor)
-ensure_responses_schema(cursor)
-ensure_question_bank_schema(cursor)
-ensure_users_schema(cursor)
-
-conn.commit()
-
+# Note: DB Init is handled by app.db.check_db_state() on import
 
 class SplashScreen:
     def __init__(self, root):
@@ -113,7 +89,7 @@ class SoulSenseApp:
 
     # ---- RESET TEST STATE ----
         self.current_question = 0
-        self.responses = {} if isinstance(self.responses, dict) else []
+        self.responses = [] 
         self.answer_var = None
 
         # Optional: reset user-related session data
@@ -387,12 +363,12 @@ class SoulSenseApp:
         card.pack(pady=30)
 
         tk.Label(
-    card,
-    text="🧠 Soul Sense EQ Test",
-    font=("Arial", 22, "bold"),
-    bg="white",
-    fg="#2C3E50"
-).pack(pady=(0, 8))
+            card,
+            text="🧠 Soul Sense EQ Test",
+            font=("Arial", 22, "bold"),
+            bg="white",
+            fg="#2C3E50"
+        ).pack(pady=(0, 8))
 
 
         tk.Label(
@@ -432,35 +408,37 @@ class SoulSenseApp:
 
         # Name
         tk.Label(
-    card,
-    text="Enter Name",
-    bg="white",
-    fg="#34495E",
-    font=("Arial", 11, "bold")
-).pack(anchor="w", pady=(5, 2))
+            card,
+            text="Enter Name",
+            bg="white",
+            fg="#34495E",
+            font=("Arial", 11, "bold")
+        ).pack(anchor="w", pady=(5, 2))
 
         self.name_entry = ttk.Entry(card, font=("Arial", 12), width=30)
+        self.name_entry.insert(0, self.username) # Prefill username from login
+        self.name_entry.configure(state='readonly') # Make it readonly
         self.name_entry.pack(pady=5)
 
         # Age
         tk.Label(
-    card,
-    text="Enter Age",
-    bg="white",
-    fg="#34495E",
-    font=("Arial", 11, "bold")
-).pack(anchor="w", pady=(5, 2))
+            card,
+            text="Enter Age",
+            bg="white",
+            fg="#34495E",
+            font=("Arial", 11, "bold")
+        ).pack(anchor="w", pady=(5, 2))
         self.age_entry = ttk.Entry(card, font=("Arial", 12), width=30)
         self.age_entry.pack(pady=5)
 
         # Education (NEW)
         tk.Label(
-    card,
-    text="Your Name",
-    bg="white",
-    fg="#34495E",
-    font=("Arial", 11, "bold")
-).pack(anchor="w", pady=(5, 2))
+            card,
+            text="Education",
+            bg="white",
+            fg="#34495E",
+            font=("Arial", 11, "bold")
+        ).pack(anchor="w", pady=(5, 2))
         self.education_combo = ttk.Combobox(
             card,
             state="readonly",
@@ -477,19 +455,18 @@ class SoulSenseApp:
         self.education_combo.set("Select your education")
 
         tk.Button(
-    card,
-    text="Start EQ Test →",
-    command=self.start_test,
-    font=("Arial", 12, "bold"),
-    bg="#4CAF50",
-    fg="white",
-    activebackground="#43A047",
-    activeforeground="white",
-    relief="flat",
-    padx=20,
-    pady=8
-).pack(pady=25)
-
+            card,
+            text="Start EQ Test →",
+            command=self.start_test,
+            font=("Arial", 12, "bold"),
+            bg="#4CAF50",
+            fg="white",
+            activebackground="#43A047",
+            activeforeground="white",
+            relief="flat",
+            padx=20,
+            pady=8
+        ).pack(pady=25)
 
 
     # ---------- VALIDATION ----------
@@ -513,6 +490,7 @@ class SoulSenseApp:
 
     # ---------- FLOW ----------
     def start_test(self):
+        # Username comes from login/entry
         self.username = self.name_entry.get().strip()
         age_str = self.age_entry.get().strip()
         self.education = self.education_combo.get()
@@ -536,7 +514,6 @@ class SoulSenseApp:
         self.age_group = compute_age_group(age)
 
         # -------- LOAD AGE-APPROPRIATE QUESTIONS --------
-        # This logic is PRESERVED from the original file
         try:
             print(self.age)
             rows = load_questions(age=self.age)  # [(id, text)]
@@ -646,20 +623,23 @@ class SoulSenseApp:
         self.responses.append(ans)
 
         qid = self.current_question + 1
-        ts = datetime.utcnow().isoformat()
-
+        
+        session = get_session()
         try:
-            cursor.execute(
-                """
-                INSERT INTO responses
-                (username, question_id, response_value, age_group, timestamp)
-                VALUES (?, ?, ?, ?, ?)
-                """,
-                (self.username, qid, ans, self.age_group, ts)
+            response = Response(
+                username=self.username,
+                question_id=qid,
+                response_value=ans,
+                age_group=self.age_group,
+                timestamp=datetime.utcnow().isoformat()
             )
-            conn.commit()
+            session.add(response)
+            session.commit()
         except Exception:
             logging.error("Failed to store response", exc_info=True)
+            session.rollback()
+        finally:
+            session.close()
 
         self.current_question += 1
         self.show_question()
@@ -707,14 +687,20 @@ class SoulSenseApp:
         categories = ["Self-Awareness", "Empathy", "Social Skills"]
 
         # Save to DB
+        session = get_session()
         try:
-            cursor.execute(
-                "INSERT INTO scores (username, age, total_score) VALUES (?, ?, ?)",
-                (self.username, self.age, total_score)
+            score = Score(
+                username=self.username,
+                age=self.age,
+                total_score=total_score
             )
-            conn.commit()
+            session.add(score)
+            session.commit()
         except Exception:
             logging.error("Failed to store final score", exc_info=True)
+            session.rollback()
+        finally:
+            session.close()
 
         interpretation = (
             "Excellent Emotional Intelligence!" if total_score >= 30 else
@@ -781,10 +767,7 @@ class SoulSenseApp:
         chart_widget.pack(fill=tk.BOTH, expand=True)
 
     def force_exit(self):
-        try:
-            conn.close()
-        except Exception:
-            pass
+        # Connection management is handled by session context/closing
         self.root.destroy()
         sys.exit(0)
 
@@ -806,4 +789,3 @@ if __name__ == "__main__":
 
     splash.close_after_delay(2500, launch_main_app)
     splash_root.mainloop()
-

@@ -1,20 +1,15 @@
 import pytest
-import tempfile
-import os
 from app.auth import AuthManager
-from app.db import get_connection
 
 class TestAuth:
-    def setup_method(self):
-        # Create temporary database for testing
-        self.temp_db = tempfile.NamedTemporaryFile(delete=False, suffix='.db')
-        self.temp_db.close()
+    @pytest.fixture(autouse=True)
+    def setup(self, temp_db):
+        """
+        Auto-use fixture that ensures temp_db is set up for every test method.
+        The temp_db fixture in conftest.py already patches app.db, so AuthManager 
+        will use the temp DB.
+        """
         self.auth_manager = AuthManager()
-        
-    def teardown_method(self):
-        # Clean up temporary database
-        if os.path.exists(self.temp_db.name):
-            os.unlink(self.temp_db.name)
     
     def test_user_registration(self):
         # Test successful registration
