@@ -6,11 +6,24 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 import matplotlib.dates as mdates
+import json
+import os
+import sqlite3
+from app.models import get_session, Score, JournalEntry
 
 class AnalyticsDashboard:
     def __init__(self, parent_root, username):
         self.parent_root = parent_root
         self.username = username
+        self.benchmarks = self.load_benchmarks()
+
+    def load_benchmarks(self):
+        """Load population benchmarks from JSON"""
+        try:
+            with open("app/benchmarks.json", "r") as f:
+                return json.load(f)
+        except Exception:
+            return None
         
     def open_dashboard(self):
         """Open analytics dashboard"""
@@ -270,5 +283,13 @@ class AnalyticsDashboard:
         
         if not insights:
             insights.append("📝 Complete more assessments and journal entries for insights!")
-            
+        
+        # Add Benchmark Insights
+        if self.benchmarks and self.benchmarks.get("global_avg"):
+            avg = self.benchmarks["global_avg"]
+            if scores and scores[-1] > avg:
+                insights.append(f"🌟 You are above the Global Average ({avg:.1f})!")
+            elif scores:
+                insights.append(f"📊 Global Average is {avg:.1f}. Keep practicing!")
+
         return insights

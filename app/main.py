@@ -14,7 +14,6 @@ from app.logger import setup_logging
 
 from app.questions import load_questions
 from app.utils import compute_age_group
-from SOULsense_final import SoulSenseApp
 
 # ---------------- LOGGING SETUP ----------------
 setup_logging()
@@ -1924,20 +1923,6 @@ class SplashScreen:
     def close_after_delay(self, delay, callback):
         self.root.after(delay, callback)
 
-# ---------------- MAIN ----------------
-import tkinter as tk
-from SOULsense_final import SoulSenseApp
-
-class SplashScreen:
-    def __init__(self, root):
-        self.root = root
-        self.root.geometry("400x200")
-        self.root.title("Soul Sense Loading...")
-        tk.Label(root, text="Soul Sense EQ Test", font=("Arial", 18, "bold"), fg="blue").pack(expand=True)
-
-    def close_after_delay(self, ms, callback):
-        self.root.after(ms, callback)
-
 if __name__ == "__main__":
     splash_root = tk.Tk()
     splash = SplashScreen(splash_root)
@@ -1946,7 +1931,7 @@ if __name__ == "__main__":
         splash_root.destroy()
         root = tk.Tk()
         app = SoulSenseApp(root)
-        root.protocol("WM_DELETE_WINDOW", app.exit_test)
+        root.protocol("WM_DELETE_WINDOW", app.force_exit)
         root.mainloop()
 
     splash.close_after_delay(2000, launch_main_app)
