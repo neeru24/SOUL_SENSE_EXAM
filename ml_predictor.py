@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import warnings
 warnings.filterwarnings('ignore')
+from app.data_cleaning import DataCleaner
 
 class SoulSenseMLPredictor:
     def __init__(self):
@@ -130,6 +131,9 @@ class SoulSenseMLPredictor:
     
     def predict_with_explanation(self, q_scores, age, total_score):
         """Make prediction with XAI explanations"""
+        # Clean inputs first
+        q_scores, age, total_score = DataCleaner.clean_inputs(q_scores, age, total_score)
+        
         # Prepare features
         X_scaled, feature_dict = self.prepare_features(q_scores, age, total_score)
         
