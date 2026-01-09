@@ -28,6 +28,45 @@ Want to add your language? See our [I18N Guide](I18N_GUIDE.md) for:
 
 ---
 
+## 🔐 Admin Interface
+
+SoulSense includes a powerful admin interface for managing questions and categories.
+
+### Features
+- **GUI Admin Panel** - User-friendly graphical interface
+- **CLI Tool** - Command-line interface for automation
+- **Secure Access** - Password-protected admin accounts
+- **CRUD Operations** - Create, Read, Update, Delete questions
+- **Category Management** - Organize questions by category
+- **Metadata Support** - Age range, difficulty, weight customization
+
+### Quick Start
+
+**Create Admin Account:**
+```bash
+python admin_cli.py create-admin --no-auth
+```
+
+**Launch GUI:**
+```bash
+python admin_interface.py
+```
+
+**CLI Commands:**
+```bash
+python admin_cli.py list                    # List all questions
+python admin_cli.py add                     # Add new question
+python admin_cli.py view --id 1             # View question
+python admin_cli.py update --id 1           # Update question
+python admin_cli.py delete --id 1           # Delete question
+python admin_cli.py categories              # View statistics
+```
+
+### Documentation
+See [ADMIN_GUIDE.md](ADMIN_GUIDE.md) for comprehensive documentation.
+
+---
+
 ## ▶️ How to Runeractive self-reflection test, persists results locally, and is designed with maintainability, testability, and extensibility in mind.
 
 **🌍 Now available in multiple languages: English, Hindi (हिंदी), and Spanish (Español)!**
