@@ -1,6 +1,7 @@
 """
 ML Predictor with XAI for SoulSense
 Predicts depression risk from questionnaire scores with explanations
+Includes model versioning for tracking experiments and model versions.
 """
 import numpy as np
 import pandas as pd
@@ -9,13 +10,21 @@ import pickle
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, f1_score, precision_score, recall_score
 import matplotlib.pyplot as plt
 import seaborn as sns
 import warnings
 warnings.filterwarnings('ignore')
+from app.data_cleaning import DataCleaner
+from model_versioning import ModelVersioningManager, create_versioning_manager
+import logging
+
+logger = logging.getLogger(__name__)
 
 class SoulSenseMLPredictor:
-    def __init__(self):
+    MODEL_NAME = "soulsense_predictor"
+    
+    def __init__(self, use_versioning: bool = True):
         self.model = None
         self.scaler = StandardScaler()
         self.feature_names = [
@@ -29,12 +38,20 @@ class SoulSenseMLPredictor:
             'average_score'
         ]
         self.class_names = ['Low Risk', 'Moderate Risk', 'High Risk']
+        self.use_versioning = use_versioning
+        self.versioning_manager = None
+        self.current_version = None
+        self.model_metadata = None
+        
+        if use_versioning:
+            self.versioning_manager = create_versioning_manager()
         
         # Try to load existing model, otherwise train new one
         try:
             self.load_model()
             print("✅ Loaded existing ML model")
-        except:
+        except Exception as e:
+            logger.info(f"No existing model found: {e}")
             print("🔄 Training new ML model...")
             self.train_sample_model()
             self.save_model()
@@ -59,77 +76,156 @@ class SoulSenseMLPredictor:
         
         return feature_array.reshape(1, -1), features
     
-    def train_sample_model(self):
-        """Train a sample model with synthetic data"""
-        # Generate synthetic training data
-        np.random.seed(42)
-        n_samples = 1000
+    def train_sample_model(self, bump_type: str = "patch", experiment_name: str = None):
+        """Train a sample model with synthetic data and version tracking"""
+        # Start experiment tracking if versioning is enabled
+        if self.use_versioning and self.versioning_manager:
+            exp_name = experiment_name or "soulsense_training"
+            self.versioning_manager.start_run(
+                name=exp_name,
+                description="Training SoulSense depression risk predictor",
+                hyperparameters={
+                    "n_estimators": 100,
+                    "max_depth": 5,
+                    "random_state": 42,
+                    "class_weight": "balanced"
+                },
+                dataset_info={
+                    "type": "synthetic",
+                    "samples": 1000,
+                    "features": len(self.feature_names)
+                },
+                tags=["soulsense", "depression_risk", "random_forest"]
+            )
         
-        # Generate realistic scores
-        X = np.zeros((n_samples, len(self.feature_names)))
-        
-        for i in range(n_samples):
-            # Generate individual question scores (1-5)
-            q_scores = np.random.randint(1, 6, 5)
+        try:
+            # Generate synthetic training data
+            np.random.seed(42)
+            n_samples = 1000
             
-            # Calculate derived features
-            total_score = q_scores.sum()
-            age = np.random.randint(12, 50)
-            avg_score = total_score / 5
+            # Generate realistic scores
+            X = np.zeros((n_samples, len(self.feature_names)))
             
-            # Create feature vector
-            X[i] = [
-                q_scores[0], q_scores[1], q_scores[2], q_scores[3], q_scores[4],
-                total_score, age, avg_score
-            ]
-        
-        # Generate labels based on rules
-        y = []
-        for i in range(n_samples):
-            total_score = X[i, 5]
-            avg_score = X[i, 7]
+            for i in range(n_samples):
+                # Generate individual question scores (1-5)
+                q_scores = np.random.randint(1, 6, 5)
+                
+                # Calculate derived features
+                total_score = q_scores.sum()
+                age = np.random.randint(12, 50)
+                avg_score = total_score / 5
+                
+                # Create feature vector
+                X[i] = [
+                    q_scores[0], q_scores[1], q_scores[2], q_scores[3], q_scores[4],
+                    total_score, age, avg_score
+                ]
             
-            # Risk classification rules
-            if total_score <= 10 or avg_score <= 2:
-                y.append(2)  # High risk
-            elif total_score <= 15 or avg_score <= 3:
-                y.append(1)  # Moderate risk
-            else:
-                y.append(0)  # Low risk
+            # Generate labels based on rules
+            y = []
+            for i in range(n_samples):
+                total_score = X[i, 5]
+                avg_score = X[i, 7]
+                
+                # Risk classification rules
+                if total_score <= 10 or avg_score <= 2:
+                    y.append(2)  # High risk
+                elif total_score <= 15 or avg_score <= 3:
+                    y.append(1)  # Moderate risk
+                else:
+                    y.append(0)  # Low risk
+            
+            y = np.array(y)
+            
+            # Split data
+            X_train, X_test, y_train, y_test = train_test_split(
+                X, y, test_size=0.2, random_state=42, stratify=y
+            )
+            
+            # Scale features
+            X_train_scaled = self.scaler.fit_transform(X_train)
+            X_test_scaled = self.scaler.transform(X_test)
+            
+            # Train Random Forest model
+            self.model = RandomForestClassifier(
+                n_estimators=100,
+                max_depth=5,
+                random_state=42,
+                class_weight='balanced'
+            )
+            
+            self.model.fit(X_train_scaled, y_train)
+            
+            # Calculate accuracy and metrics
+            train_acc = self.model.score(X_train_scaled, y_train)
+            test_acc = self.model.score(X_test_scaled, y_test)
+            
+            # Calculate additional metrics
+            y_pred = self.model.predict(X_test_scaled)
+            f1 = f1_score(y_test, y_pred, average='weighted')
+            precision = precision_score(y_test, y_pred, average='weighted')
+            recall = recall_score(y_test, y_pred, average='weighted')
+            
+            print(f"✅ Model trained successfully!")
+            print(f"   Training accuracy: {train_acc:.2%}")
+            print(f"   Test accuracy: {test_acc:.2%}")
+            
+            # Detailed Evaluation
+            print("\n📊 Detailed Classification Report:")
+            report = classification_report(y_test, y_pred, target_names=self.class_names)
+            print(report)
+            
+            # Log metrics to versioning system
+            if self.use_versioning and self.versioning_manager:
+                self.versioning_manager.log_metrics({
+                    "train_accuracy": float(train_acc),
+                    "test_accuracy": float(test_acc),
+                    "f1_score": float(f1),
+                    "precision": float(precision),
+                    "recall": float(recall)
+                })
+                
+                # Log classification report as artifact
+                self.versioning_manager.log_artifact("classification_report", report)
+            
+            # Save artifacts
+            self.save_evaluation_artifacts(y_test, y_pred, report)
+            
+            return self.model
+            
+        except Exception as e:
+            if self.use_versioning and self.versioning_manager:
+                self.versioning_manager.fail_run(str(e))
+            raise
+
+    def save_evaluation_artifacts(self, y_true, y_pred, report):
+        """Save confusion matrix plot and metrics text"""
+        # 1. Save Metrics Text
+        with open('model_metrics.txt', 'w', encoding='utf-8') as f:
+            f.write("SoulSense ML Model Evaluation\n")
+            f.write("=============================\n\n")
+            f.write(report)
+        print("📝 Metrics saved to model_metrics.txt")
         
-        y = np.array(y)
-        
-        # Split data
-        X_train, X_test, y_train, y_test = train_test_split(
-            X, y, test_size=0.2, random_state=42, stratify=y
-        )
-        
-        # Scale features
-        X_train_scaled = self.scaler.fit_transform(X_train)
-        X_test_scaled = self.scaler.transform(X_test)
-        
-        # Train Random Forest model
-        self.model = RandomForestClassifier(
-            n_estimators=100,
-            max_depth=5,
-            random_state=42,
-            class_weight='balanced'
-        )
-        
-        self.model.fit(X_train_scaled, y_train)
-        
-        # Calculate accuracy
-        train_acc = self.model.score(X_train_scaled, y_train)
-        test_acc = self.model.score(X_test_scaled, y_test)
-        
-        print(f"✅ Model trained successfully!")
-        print(f"   Training accuracy: {train_acc:.2%}")
-        print(f"   Test accuracy: {test_acc:.2%}")
-        
-        return self.model
+        # 2. Save Confusion Matrix Plot
+        cm = confusion_matrix(y_true, y_pred)
+        plt.figure(figsize=(8, 6))
+        sns.heatmap(cm, annot=True, fmt='d', cmap='Blues',
+                    xticklabels=self.class_names,
+                    yticklabels=self.class_names)
+        plt.title('Confusion Matrix - Depression Risk Prediction')
+        plt.ylabel('True Label')
+        plt.xlabel('Predicted Label')
+        plt.tight_layout()
+        plt.savefig('confusion_matrix.png')
+        plt.close()
+        print("📉 Confusion matrix saved to confusion_matrix.png")
     
     def predict_with_explanation(self, q_scores, age, total_score):
         """Make prediction with XAI explanations"""
+        # Clean inputs first
+        q_scores, age, total_score = DataCleaner.clean_inputs(q_scores, age, total_score)
+        
         # Prepare features
         X_scaled, feature_dict = self.prepare_features(q_scores, age, total_score)
         
@@ -148,6 +244,9 @@ class SoulSenseMLPredictor:
             prediction, probabilities, feature_dict, feature_importance
         )
         
+        # Get recommendations
+        recommendations = self.get_recommendations(prediction, feature_dict)
+        
         return {
             'prediction': int(prediction),
             'prediction_label': self.class_names[prediction],
@@ -155,8 +254,47 @@ class SoulSenseMLPredictor:
             'confidence': float(probabilities[prediction]),
             'features': feature_dict,
             'feature_importance': feature_importance,
-            'explanation': explanation
+            'explanation': explanation,
+            'recommendations': recommendations
         }
+    
+    def get_recommendations(self, prediction, features):
+        """Generate actionable advice based on specific feature deficits"""
+        advice = []
+        
+        # General Advice based on Risk Level
+        if prediction == 2: # High Risk
+            advice.append("Consider consulting a mental health professional for personalized support.")
+            advice.append("Reach out to a trusted friend or family member to share your feelings.")
+        elif prediction == 1: # Moderate Risk
+            advice.append("Try setting aside 10 minutes daily for mindfulness or meditation.")
+            advice.append("Focus on maintaining a regular sleep schedule.")
+
+        # Specific Advice based on Low Scores
+        # Emotional Regulation (Q3)
+        if features.get('emotional_regulation', 5) <= 2:
+            advice.append("Practice 'Box Breathing': Inhale 4s, Hold 4s, Exhale 4s, Hold 4s.")
+            advice.append("Identify your triggers: Write down what situations cause strong reactions.")
+            
+        # Social Awareness (Q5)
+        if features.get('social_awareness', 5) <= 2:
+            advice.append("Active Listening: Focus entirely on the speaker without planning your response.")
+            advice.append("Observe Body Language: Notice non-verbal cues in your next conversation.")
+            
+        # Emotional Understanding (Q2)
+        if features.get('emotional_understanding', 5) <= 2:
+            advice.append("Emotion Labeling: paused to specifically name what you are feeling (e.g., 'Frustrated').")
+            
+        # Emotional Recognition (Q1)
+        if features.get('emotional_recognition', 5) <= 2:
+            advice.append("Body Scan: Close your eyes and notice where you feel tension in your body.")
+
+        # Fallback
+        if not advice:
+            advice.append("Continue engaging in hobbies that bring you joy.")
+            advice.append("Maintain your current healthy emotional habits!")
+            
+        return advice[:5] # Limit to top 5 tips
     
     def get_feature_importance(self, features):
         """Get feature importance for this specific prediction"""
@@ -286,29 +424,143 @@ class SoulSenseMLPredictor:
         
         return explanation_report
     
-    def save_model(self):
-        """Save model and scaler"""
+    def save_model(self, bump_type: str = "patch"):
+        """Save model with versioning support"""
+        # Register model with versioning system
+        if self.use_versioning and self.versioning_manager:
+            self.model_metadata = self.versioning_manager.end_run(
+                model=self.model,
+                model_name=self.MODEL_NAME,
+                scaler=self.scaler,
+                feature_names=self.feature_names,
+                class_names=self.class_names,
+                bump_type=bump_type,
+                notes="Model trained with synthetic data"
+            )
+            
+            if self.model_metadata:
+                self.current_version = self.model_metadata.version
+                print(f"✅ ML model registered as v{self.current_version}")
+        
+        # Also save to legacy location for backward compatibility
         model_data = {
             'model': self.model,
             'scaler': self.scaler,
             'feature_names': self.feature_names,
-            'class_names': self.class_names
+            'class_names': self.class_names,
+            'version': self.current_version
         }
         
         with open('soulsense_ml_model.pkl', 'wb') as f:
             pickle.dump(model_data, f)
         print("✅ ML model saved to soulsense_ml_model.pkl")
     
-    def load_model(self):
-        """Load model and scaler"""
-        with open('soulsense_ml_model.pkl', 'rb') as f:
-            model_data = pickle.load(f)
+    def load_model(self, version: str = None):
+        """Load model with versioning support"""
+        loaded_from_registry = False
         
-        self.model = model_data['model']
-        self.scaler = model_data['scaler']
-        self.feature_names = model_data['feature_names']
-        self.class_names = model_data['class_names']
-        print("✅ ML model loaded from soulsense_ml_model.pkl")
+        # Try loading from versioning registry first
+        if self.use_versioning and self.versioning_manager:
+            try:
+                if version:
+                    model_data, metadata = self.versioning_manager.registry.get_model(
+                        self.MODEL_NAME, version
+                    )
+                else:
+                    # Try to get production model
+                    result = self.versioning_manager.get_production_model(self.MODEL_NAME)
+                    if result:
+                        model_data, metadata = result
+                    else:
+                        # Fall back to latest version
+                        model_data, metadata = self.versioning_manager.registry.get_model(
+                            self.MODEL_NAME
+                        )
+                
+                self.model = model_data['model']
+                self.scaler = model_data['scaler']
+                self.feature_names = model_data.get('feature_names', self.feature_names)
+                self.class_names = model_data.get('class_names', self.class_names)
+                self.current_version = metadata.version
+                self.model_metadata = metadata
+                loaded_from_registry = True
+                print(f"✅ ML model loaded from registry (v{self.current_version})")
+                return
+            except Exception as e:
+                logger.debug(f"Could not load from registry: {e}")
+        
+        # Fall back to legacy pkl file
+        if not loaded_from_registry:
+            with open('soulsense_ml_model.pkl', 'rb') as f:
+                model_data = pickle.load(f)
+            
+            self.model = model_data['model']
+            self.scaler = model_data['scaler']
+            self.feature_names = model_data['feature_names']
+            self.class_names = model_data['class_names']
+            self.current_version = model_data.get('version', 'legacy')
+            print(f"✅ ML model loaded from soulsense_ml_model.pkl (v{self.current_version})")
+    
+    def load_specific_version(self, version: str):
+        """Load a specific model version"""
+        self.load_model(version=version)
+    
+    def promote_to_production(self, version: str = None):
+        """Promote a model version to production"""
+        if not self.use_versioning or not self.versioning_manager:
+            print("⚠️ Versioning not enabled")
+            return False
+        
+        target_version = version or self.current_version
+        if target_version:
+            return self.versioning_manager.promote_model(self.MODEL_NAME, target_version)
+        return False
+    
+    def list_versions(self):
+        """List all available model versions"""
+        if not self.use_versioning or not self.versioning_manager:
+            return []
+        
+        return self.versioning_manager.registry.list_versions(self.MODEL_NAME)
+    
+    def compare_versions(self, version1: str, version2: str):
+        """Compare two model versions"""
+        if not self.use_versioning or not self.versioning_manager:
+            return None
+        
+        return self.versioning_manager.registry.compare_versions(
+            self.MODEL_NAME, version1, version2
+        )
+    
+    def rollback(self, version: str):
+        """Rollback to a previous model version"""
+        if not self.use_versioning or not self.versioning_manager:
+            print("⚠️ Versioning not enabled")
+            return False
+        
+        success = self.versioning_manager.registry.rollback(self.MODEL_NAME, version)
+        if success:
+            self.load_specific_version(version)
+        return success
+    
+    def get_model_info(self):
+        """Get information about the current model"""
+        info = {
+            "version": self.current_version,
+            "feature_names": self.feature_names,
+            "class_names": self.class_names,
+            "model_type": type(self.model).__name__ if self.model else None
+        }
+        
+        if self.model_metadata:
+            info.update({
+                "model_id": self.model_metadata.model_id,
+                "created_at": self.model_metadata.created_at,
+                "metrics": self.model_metadata.metrics,
+                "is_production": self.model_metadata.is_production
+            })
+        
+        return info
     
     def plot_feature_importance(self, importance_dict, username):
         """Create feature importance visualization"""
@@ -341,10 +593,23 @@ class SoulSenseMLPredictor:
 
 # Quick test
 if __name__ == "__main__":
-    print("🧠 Testing SoulSense ML Predictor...")
+    print("🧠 Testing SoulSense ML Predictor with Versioning...")
     
-    # Initialize predictor
-    predictor = SoulSenseMLPredictor()
+    # Initialize predictor with versioning enabled
+    predictor = SoulSenseMLPredictor(use_versioning=True)
+    
+    # Display model info
+    print("\n📋 Model Information:")
+    model_info = predictor.get_model_info()
+    for key, value in model_info.items():
+        print(f"   {key}: {value}")
+    
+    # List available versions
+    print("\n📚 Available Model Versions:")
+    versions = predictor.list_versions()
+    for v in versions:
+        prod_marker = " ⭐ PRODUCTION" if v.get('is_production') else ""
+        print(f"   v{v['version']} - {v['created_at']}{prod_marker}")
     
     # Test prediction
     test_scores = [2, 3, 1, 4, 2]  # Individual question scores
@@ -353,12 +618,13 @@ if __name__ == "__main__":
     
     result = predictor.predict_with_explanation(test_scores, test_age, test_total)
     
-    print(f"\nPrediction: {result['prediction_label']}")
-    print(f"Confidence: {result['confidence']:.1%}")
+    print(f"\n🔮 Prediction: {result['prediction_label']}")
+    print(f"   Confidence: {result['confidence']:.1%}")
     
-    print("\nTop Features:")
+    print("\n📊 Top Features:")
     for feature, importance in list(result['feature_importance'].items())[:3]:
-        print(f"  {feature}: {importance:.1%}")
+        print(f"   {feature}: {importance:.1%}")
     
-    print("\n" + "="*50)
-    print(result['explanation'])
+    # Show versioning summary
+    if predictor.versioning_manager:
+        print("\n" + predictor.versioning_manager.generate_summary())

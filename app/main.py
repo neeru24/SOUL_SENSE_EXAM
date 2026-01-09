@@ -14,6 +14,7 @@ from app.logger import setup_logging
 
 from app.questions import load_questions
 from app.utils import compute_age_group
+from ml_predictor import SoulSenseMLPredictor
 
 # ---------------- LOGGING SETUP ----------------
 setup_logging()
@@ -151,8 +152,9 @@ conn.commit()
 
 # ---------------- LOAD QUESTIONS FROM DB ----------------
 try:
-    rows = load_questions()  # [(id, text)]
-    all_questions = [q[1] for q in rows]   # preserve text only
+    rows = load_questions()  # [(id, text, tooltip, min_age, max_age)]
+    # Store (text, tooltip) tuple
+    all_questions = [(q[1], q[2]) for q in rows]
     
     if not all_questions:
         raise ResourceError("Question bank empty: No questions found in database.")
@@ -170,6 +172,14 @@ class SoulSenseApp:
         self.root.title("Soul Sense EQ Test")
         self.root.geometry("650x550")  # Increased size for benchmarking
         
+        # Initialize ML Predictor
+        try:
+            self.ml_predictor = SoulSenseMLPredictor()
+            logging.info("ML Predictor initialized successfully")
+        except Exception as e:
+            logging.error(f"Failed to initialize ML Predictor: {e}")
+            self.ml_predictor = None
+
         # Load settings
         self.settings = load_settings()
         
@@ -744,8 +754,15 @@ class SoulSenseApp:
             self.finish_test()
             return
 
-        q = self.questions[self.current_question]
-        
+        q_data = self.questions[self.current_question]
+        # Handle both tuple (new format) and string (legacy safety)
+        if isinstance(q_data, tuple):
+            q_text = q_data[0]
+            q_tooltip = q_data[1]
+        else:
+            q_text = q_data
+            q_tooltip = None
+
         # Question counter
         self.create_widget(
             tk.Label,
@@ -760,11 +777,14 @@ class SoulSenseApp:
         self.create_widget(
             tk.Label,
             q_frame,
-            text=f"Q{self.current_question + 1}: {q}",
+            text=f"Q{self.current_question + 1}: {q_text}",
             wraplength=400,
             font=("Arial", 12)
         ).pack(side="left")
         
+        # Tooltip content
+        tooltip_text = q_tooltip if q_tooltip else "Select the option that best describes you.\nThere are no right or wrong answers."
+
         # Tooltip Icon
         info_btn = tk.Button(
             q_frame,
@@ -776,8 +796,8 @@ class SoulSenseApp:
             command=lambda: None # Placeholder, real action via bind
         )
         info_btn.pack(side="left", padx=5)
-        info_btn.bind("<Button-1>", lambda e: self.toggle_tooltip(e, "Select the option that best describes you.\nThere are no right or wrong answers."))
-        info_btn.bind("<Return>", lambda e: self.toggle_tooltip(e, "Select the option that best describes you.\nThere are no right or wrong answers."))
+        info_btn.bind("<Button-1>", lambda e: self.toggle_tooltip(e, tooltip_text))
+        info_btn.bind("<Return>", lambda e: self.toggle_tooltip(e, tooltip_text))
 
         # Bind Enter to Next
         self.root.bind("<Return>", lambda e: self.save_answer())
@@ -1338,6 +1358,36 @@ class SoulSenseApp:
         button_frame = self.create_widget(tk.Frame, scrollable_frame)
         button_frame.pack(pady=20, padx=20)
         
+        button_frame.pack(pady=20, padx=20)
+        
+        # Grid Layout for Buttons
+        # Row 0: AI Analysis (Center, Prominent)
+        if self.ml_predictor:
+            btn_ai = tk.Button(
+                button_frame,
+                text="🤖 AI Analysis",
+                command=self.show_ml_analysis,
+                font=("Segoe UI", 12, "bold"),
+                bg="#1976D2",
+                fg="white",
+                activebackground="#1565C0",
+                activeforeground="white",
+                relief="flat",
+                cursor="hand2",
+                width=20,
+                pady=8
+            )
+            btn_ai.grid(row=0, column=0, columnspan=2, pady=(0, 15))
+            
+            def on_enter(e): btn_ai['bg'] = "#2196F3"
+            def on_leave(e): btn_ai['bg'] = "#1976D2"
+            btn_ai.bind("<Enter>", on_enter)
+            btn_ai.bind("<Leave>", on_leave)
+
+        # Row 1: Comparison & History
+        row1_frame = tk.Frame(button_frame)
+        row1_frame.grid(row=1, column=0, columnspan=2, pady=5)
+        
         # Check if user has previous attempts
         cursor.execute(
             "SELECT COUNT(*) FROM scores WHERE username = ?",
@@ -1345,46 +1395,227 @@ class SoulSenseApp:
         )
         previous_count = cursor.fetchone()[0]
         
-        if previous_count > 1:  # Current test + at least one previous
+        if previous_count > 1:
             self.create_widget(
                 tk.Button,
-                button_frame,
-                text="Compare with Previous Tests",
+                row1_frame,
+                text="Compare Previous",
                 command=self.show_comparison_screen,
-                font=("Arial", 12),
-                width=25
-            ).pack(side="left", padx=10)
+                font=("Arial", 11),
+                width=16
+            ).pack(side="left", padx=5)
         
         self.create_widget(
             tk.Button,
-            button_frame,
+            row1_frame,
             text="View History",
             command=self.show_history_screen,
-            font=("Arial", 12),
-            width=15
-        ).pack(side="left", padx=10)
+            font=("Arial", 11),
+            width=16
+        ).pack(side="left", padx=5)
         
+        # Row 2: Standard Actions
+        row2_frame = tk.Frame(button_frame)
+        row2_frame.grid(row=2, column=0, columnspan=2, pady=5)
+
         self.create_widget(
             tk.Button,
-            button_frame,
-            text="Take Another Test",
+            row2_frame,
+            text="Take Another",
             command=self.reset_test,
-            font=("Arial", 12),
-            width=15
-        ).pack(side="left", padx=10)
+            font=("Arial", 11),
+            width=16
+        ).pack(side="left", padx=5)
         
         self.create_widget(
             tk.Button,
-            button_frame,
+            row2_frame,
             text="Main Menu",
             command=self.create_welcome_screen,
-            font=("Arial", 12),
-            width=15
-        ).pack(side="left", padx=10)
+            font=("Arial", 11),
+            width=16
+        ).pack(side="left", padx=5)
         
-        # Pack canvas and scrollbar
+        # Pack canvas and scrollbar (unchanged)
         canvas.pack(side="left", fill="both", expand=True)
         scrollbar.pack(side="right", fill="y")
+
+    def show_ml_analysis(self):
+        """Show AI-powered analysis in a popup window"""
+        if not self.ml_predictor:
+            messagebox.showerror("Error", "AI Model not loaded.")
+            return
+            
+        try:
+            # 1. Get Prediction
+            result = self.ml_predictor.predict_with_explanation(
+                self.responses, 
+                self.age, 
+                self.current_score
+            )
+            
+            # 2. Create Layout
+            popup = tk.Toplevel(self.root)
+            popup.title("🤖 SoulSense AI Analysis")
+            popup.geometry("650x750")
+            popup.configure(bg="#F5F5F5")
+
+            # Main Scrollable Frame
+            canvas = tk.Canvas(popup, bg="#F5F5F5")
+            scrollbar = tk.Scrollbar(popup, orient="vertical", command=canvas.yview)
+            scrollable_frame = tk.Frame(canvas, bg="#F5F5F5")
+
+            scrollable_frame.bind(
+                "<Configure>",
+                lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
+            )
+
+            canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+            canvas.configure(yscrollcommand=scrollbar.set)
+
+            canvas.pack(side="left", fill="both", expand=True)
+            scrollbar.pack(side="right", fill="y")
+
+            # --- CARD 1: OVERVIEW ---
+            risk_color = "#D32F2F" if result['prediction'] == 2 else "#FBC02D" if result['prediction'] == 1 else "#388E3C"
+            bg_color = "#FFEBEE" if result['prediction'] == 2 else "#FFFDE7" if result['prediction'] == 1 else "#E8F5E9"
+            
+            card1 = tk.Frame(scrollable_frame, bg="white", bd=1, relief="solid")
+            card1.pack(fill="x", padx=20, pady=10)
+            
+            # Header
+            header_frame = tk.Frame(card1, bg=risk_color, height=80)
+            header_frame.pack(fill="x")
+            
+            tk.Label(
+                header_frame, 
+                text=result['prediction_label'].upper(), 
+                font=("Arial", 18, "bold"),
+                bg=risk_color,
+                fg="white"
+            ).pack(pady=10)
+            
+            tk.Label(
+                header_frame,
+                text=f"Confidence: {result['confidence']:.1%}",
+                font=("Arial", 12),
+                bg=risk_color,
+                fg="white"
+            ).pack(pady=(0, 10))
+
+            tk.Label(
+                card1, 
+                text="Based on your inputs, the AI model suggests:", 
+                font=("Arial", 11, "italic"),
+                bg="white",
+                fg="#555"
+            ).pack(pady=15)
+
+            # --- CARD 2: ACTION PLAN ---
+            tk.Label(scrollable_frame, text="✅ RECOMMENDED ACTIONS", font=("Arial", 14, "bold"), bg="#F5F5F5", fg="#333").pack(anchor="w", padx=25, pady=(15,5))
+            
+            card2 = tk.Frame(scrollable_frame, bg="white", bd=0, highlightbackground="#ddd", highlightthickness=1)
+            card2.pack(fill="x", padx=20)
+
+            if 'recommendations' in result and result['recommendations']:
+                for tip in result['recommendations']:
+                    row = tk.Frame(card2, bg="white")
+                    row.pack(fill="x", pady=10, padx=15)
+                    
+                    tk.Label(row, text="🔹", font=("Arial", 12), bg="white", fg=risk_color).pack(side="left", anchor="n")
+                    tk.Label(
+                        row, 
+                        text=tip, 
+                        font=("Arial", 11), 
+                        bg="white", 
+                        fg="#333", 
+                        wraplength=500, 
+                        justify="left"
+                    ).pack(side="left", padx=10)
+            else:
+                tk.Label(card2, text="No specific recommendations available.", bg="white").pack(pady=20)
+
+            # --- CARD 3: TOP FACTORS ---
+            tk.Label(scrollable_frame, text="🔍 INFLUENCING FACTORS", font=("Arial", 14, "bold"), bg="#F5F5F5", fg="#333").pack(anchor="w", padx=25, pady=(20,5))
+            
+            card3 = tk.Frame(scrollable_frame, bg="white", bd=0, highlightbackground="#ddd", highlightthickness=1)
+            card3.pack(fill="x", padx=20, pady=10)
+
+            card3.pack(fill="x", padx=20, pady=10)
+
+            # Filter out non-5-point scale features for clean visualization
+            visual_features = {k: v for k, v in result['features'].items() 
+                             if k not in ['total_score', 'age', 'average_score']}
+            
+            sorted_features = sorted(visual_features.items(), key=lambda x: result['feature_importance'].get(x[0], 0), reverse=True)[:3]
+            
+            for feature, value in sorted_features:
+                imp = result['feature_importance'].get(feature, 0)
+                f_name = feature.replace('_', ' ').title()
+                
+                f_row = tk.Frame(card3, bg="white")
+                f_row.pack(fill="x", pady=8, padx=15)
+                
+                # Label Row (Name + Value)
+                label_row = tk.Frame(f_row, bg="white")
+                label_row.pack(fill="x", pady=(0, 2))
+                
+                tk.Label(
+                    label_row, 
+                    text=f_name, 
+                    font=("Segoe UI", 11, "bold"), 
+                    bg="white", 
+                    fg="#444"
+                ).pack(side="left")
+                
+                tk.Label(
+                    label_row, 
+                    text=f"{value:.1f}/5", 
+                    font=("Segoe UI", 11, "bold"), 
+                    bg="white", 
+                    fg="#666"
+                ).pack(side="right")
+                
+                # Progress Bar
+                bar_bg = tk.Frame(f_row, bg="#F0F2F5", height=12, width=400)
+                bar_bg.pack(fill="x", pady=2)
+                bar_bg.pack_propagate(False)
+                
+                fill_width = int(520 * imp * 3.5) # Scale to available width
+                # Note: fill_width is relative to parent, simplified here as frame width isn't fixed yet
+                # We use a fractional width approach or fixed max
+                
+                tk.Frame(
+                    bar_bg, 
+                    bg="#4CAF50" if imp < 0.1 else "#2196F3" if imp < 0.3 else "#FF9800", # Color by impact
+                    height=12, 
+                    width=fill_width
+                ).pack(side="left")
+
+            # Close Button
+            btn_close = tk.Button(
+                scrollable_frame,
+                text="Close Analysis",
+                command=popup.destroy,
+                font=("Segoe UI", 12, "bold"),
+                bg="#546E7A", # Blue Grey
+                fg="white", 
+                activebackground="#455A64",
+                activeforeground="white",
+                relief="flat",
+                cursor="hand2",
+                width=20,
+                pady=10
+            )
+            btn_close.pack(pady=30)
+            
+            # Hover for close
+            btn_close.bind("<Enter>", lambda e: btn_close.configure(bg="#455A64"))
+            btn_close.bind("<Leave>", lambda e: btn_close.configure(bg="#546E7A"))
+            
+        except Exception as e:
+            logging.error("AI Analysis failed", exc_info=True)
+            messagebox.showerror("Analysis Error", f"Could not generate AI report.\n{e}")
 
     def show_history_screen(self):
         """Show history of all tests for the current user"""

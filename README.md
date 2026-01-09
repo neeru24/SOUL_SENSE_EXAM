@@ -168,19 +168,23 @@ pip install -r requirements.txt -->
 
 ## ▶️ How to Run
 
-**First Time Setup:**
+### 1. Database Setup
 
-1. Load questions into the database (one-time step):
+Ensure your database schema is up to date:
 
 ```bash
-python -m scripts.load_questions
+python -m alembic upgrade head
 ```
 
-2. Start the application:
+### 2. Start the Application
+
+Launch the SoulSense interface:
 
 ```bash
 python -m app.main
 ```
+
+> **Note:** Do not use `npm run dev`. This is a pure Python application.
 
 **Authentication Flow:**
 
