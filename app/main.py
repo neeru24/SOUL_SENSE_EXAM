@@ -708,10 +708,6 @@ class SoulSenseApp:
             return True, age, None
         except ValueError:
             return False, None, "Age must be numeric."
-
-            return True, age, None
-        except ValueError:
-            return False, None, "Age must be numeric."
     
     def _enter_start(self, event):
         self.start_test()
@@ -787,6 +783,10 @@ class SoulSenseApp:
         self.root.bind("<Return>", lambda e: self.save_answer())
 
         self.answer_var = tk.IntVar()
+        
+        # Set the default value if we have a previous response for this question
+        if self.current_question < len(self.responses):
+            self.answer_var.set(self.responses[self.current_question])
 
         for val, txt in enumerate(["Never", "Sometimes", "Often", "Always"], 1):
             self.create_widget(
@@ -801,26 +801,44 @@ class SoulSenseApp:
         button_frame = self.create_widget(tk.Frame, self.root)
         button_frame.pack(pady=15)
         
+        # Always show Previous button except on first question
         if self.current_question > 0:
             self.create_widget(
                 tk.Button,
                 button_frame,
-                text="Previous",
-                command=self.previous_question
+                text="← Previous",
+                command=self.previous_question,
+                font=("Arial", 11)
             ).pack(side="left", padx=5)
-
+        
+        # Show different text for last question
+        if self.current_question == len(self.questions) - 1:
+            next_text = "Finish Test"
+        else:
+            next_text = "Next →"
+        
         self.create_widget(
             tk.Button,
             button_frame,
-            text="Next",
-            command=self.save_answer
+            text=next_text,
+            command=self.save_answer,
+            font=("Arial", 11)
         ).pack(side="left", padx=5)
 
     def previous_question(self):
+        # Save current answer before moving back
+        current_answer = self.answer_var.get()
+        if current_answer > 0:  # Only save if an answer was selected
+            if self.current_question < len(self.responses):
+                # Update existing response
+                self.responses[self.current_question] = current_answer
+            else:
+                # Add new response if it doesn't exist
+                self.responses.append(current_answer)
+        
+        # Move to previous question
         if self.current_question > 0:
             self.current_question -= 1
-            if self.responses:
-                self.responses.pop()
             self.show_question()
 
     def save_answer(self):
@@ -829,7 +847,11 @@ class SoulSenseApp:
             messagebox.showwarning("Input Error", "Please select an answer.")
             return
 
-        self.responses.append(ans)
+        # Save or update the response
+        if self.current_question < len(self.responses):
+            self.responses[self.current_question] = ans
+        else:
+            self.responses.append(ans)
 
         qid = self.current_question + 1
         ts = datetime.utcnow().isoformat()
@@ -1936,5 +1958,3 @@ if __name__ == "__main__":
 
     splash.close_after_delay(2000, launch_main_app)
     splash_root.mainloop()
-
-
