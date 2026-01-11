@@ -1,0 +1,36 @@
+name: Auto-assign reviewers on PR open
+
+on:
+  pull_request_target:
+    types: [opened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  assign-reviewers:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Assign reviewers to new PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+
+            // List of reviewers to assign (configure as needed)
+            const reviewers = ["reviewer1", "reviewer2"];
+
+            if (!reviewers.length) {
+              console.log("No reviewers configured.");
+              return;
+            }
+
+            await github.rest.pulls.requestReviewers({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number,
+              reviewers: reviewers
+            });
+
+            console.log(`Assigned reviewers [${reviewers.join(", ")}] to PR #${pr.number}`);
