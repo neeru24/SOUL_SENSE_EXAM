@@ -27,11 +27,13 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
+from app.config import DB_PATH
+
 class QuestionDatabase:
     """Handles database operations for questions"""
     
-    def __init__(self, db_path="soulsense_db"):
-        self.db_path = db_path
+    def __init__(self, db_path=None):
+        self.db_path = db_path or DB_PATH
         self.init_database()
     
     def init_database(self):
