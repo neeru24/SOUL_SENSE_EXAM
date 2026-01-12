@@ -3790,3 +3790,1001 @@ KeyError: 'features'
 2026-01-12 18:51:51,485 - root - INFO - Session started | user=rohan | age=20 | age_group=adult | profession=Student | questions=10
 2026-01-12 18:51:51,684 - root - INFO - Loaded settings for user 4: {'theme': 'dark', 'question_count': 5, 'sound_enabled': True, 'notifications_enabled': True, 'language': 'en'}
 2026-01-12 18:51:51,692 - root - INFO - Reloaded 5 questions based on settings
+2026-01-12 22:10:19,412 - root - INFO - Logging initialized.
+2026-01-12 22:10:19,431 - root - INFO - Application started
+2026-01-12 22:10:19,433 - root - INFO - Loaded 10 total questions from DB
+2026-01-12 22:10:22,611 - root - INFO - Loading ML Model: models\risk_model_v20260111_223056.pkl
+2026-01-12 22:10:22,667 - root - INFO - ML Predictor initialized successfully
+2026-01-12 22:10:22,695 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-12 22:10:22,695 - root - ERROR - 
+
+>>> APP INITIALIZED V2.1 <<<
+
+2026-01-12 22:10:22,696 - root - INFO - Using 10 questions based on settings
+2026-01-12 22:58:22,677 - root - INFO - Logging initialized.
+2026-01-12 22:58:22,697 - root - INFO - Application started
+2026-01-12 22:58:22,699 - root - INFO - Loaded 10 total questions from DB
+2026-01-12 22:58:25,346 - root - INFO - Loading ML Model: models\risk_model_v20260111_223056.pkl
+2026-01-12 22:58:25,461 - root - INFO - ML Predictor initialized successfully
+2026-01-12 22:58:25,550 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-12 22:58:25,563 - root - ERROR - 
+
+>>> APP INITIALIZED V2.1 <<<
+
+2026-01-12 22:58:25,584 - root - INFO - Using 10 questions based on settings
+2026-01-12 22:58:38,663 - root - INFO - Session started | user=rohan | age=20 | age_group=adult | profession=Student | questions=10
+2026-01-12 22:58:38,748 - root - INFO - Loaded settings for user 4: {'theme': 'dark', 'question_count': 5, 'sound_enabled': True, 'notifications_enabled': True, 'language': 'en'}
+2026-01-12 22:58:38,749 - root - INFO - Reloaded 5 questions based on settings
+2026-01-12 22:59:49,276 - root - ERROR - Nudge check failed: Could not locate column in row for column '0'
+2026-01-12 23:00:05,972 - app.db - ERROR - Unexpected error in DB context: 'Response' object is not subscriptable
+Traceback (most recent call last):
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\db.py", line 32, in safe_db_context
+    yield session
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\analysis\time_based_analysis.py", line 218, in analyze_response_patterns_over_time
+    all_values = [r["response_value"] for r in responses]
+                  ~^^^^^^^^^^^^^^^^^^
+TypeError: 'Response' object is not subscriptable
+2026-01-12 23:00:06,090 - app.analysis.time_based_analysis - ERROR - Error analyzing response patterns for rohan: An unexpected database error occurred.
+2026-01-12 23:00:06,678 - app.ml.clustering - INFO - Model loaded from B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ml\models\clustering\emotional_profile_model.pkl
+2026-01-12 23:00:37,503 - root - ERROR - Nudge check failed: Could not locate column in row for column '0'
+2026-01-12 23:00:42,612 - app.db - ERROR - Unexpected error in DB context: 'Response' object is not subscriptable
+Traceback (most recent call last):
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\db.py", line 32, in safe_db_context
+    yield session
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\analysis\time_based_analysis.py", line 218, in analyze_response_patterns_over_time
+    all_values = [r["response_value"] for r in responses]
+                  ~^^^^^^^^^^^^^^^^^^
+TypeError: 'Response' object is not subscriptable
+2026-01-12 23:00:42,614 - app.analysis.time_based_analysis - ERROR - Error analyzing response patterns for rohan: An unexpected database error occurred.
+2026-01-12 23:00:42,994 - app.ml.clustering - INFO - Model loaded from B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ml\models\clustering\emotional_profile_model.pkl
+2026-01-12 23:01:26,212 - app.ml.clustering - INFO - Model loaded from B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ml\models\clustering\emotional_profile_model.pkl
+2026-01-12 23:19:23,527 - root - INFO - Logging initialized.
+2026-01-12 23:19:23,543 - root - INFO - Application started
+2026-01-12 23:19:23,547 - root - INFO - Loaded 10 total questions from DB
+2026-01-12 23:19:26,199 - root - INFO - Loading ML Model: models\risk_model_v20260111_223056.pkl
+2026-01-12 23:19:26,299 - root - INFO - ML Predictor initialized successfully
+2026-01-12 23:19:26,357 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-12 23:19:26,377 - root - ERROR - 
+
+>>> APP INITIALIZED V2.1 <<<
+
+2026-01-12 23:19:26,386 - root - INFO - Using 10 questions based on settings
+2026-01-12 23:20:02,674 - root - INFO - Session started | user=rohan | age=20 | age_group=adult | profession=Student | questions=10
+2026-01-12 23:20:03,273 - root - INFO - Loaded settings for user 4: {'theme': 'dark', 'question_count': 5, 'sound_enabled': True, 'notifications_enabled': True, 'language': 'en'}
+2026-01-12 23:20:03,275 - root - INFO - Reloaded 5 questions based on settings
+2026-01-12 23:32:47,764 - root - INFO - Logging initialized.
+2026-01-12 23:32:47,781 - root - INFO - Application started
+2026-01-12 23:32:47,789 - root - INFO - Loaded 10 total questions from DB
+2026-01-12 23:32:50,509 - root - INFO - Loading ML Model: models\risk_model_v20260111_223056.pkl
+2026-01-12 23:32:50,588 - root - INFO - ML Predictor initialized successfully
+2026-01-12 23:32:50,625 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-12 23:32:50,625 - root - ERROR - 
+
+>>> APP INITIALIZED V2.1 <<<
+
+2026-01-12 23:32:50,626 - root - INFO - Using 10 questions based on settings
+2026-01-12 23:38:44,899 - root - INFO - Session started | user=rohan | age=20 | age_group=adult | profession=Student | questions=10
+2026-01-12 23:38:45,321 - root - INFO - Loaded settings for user 4: {'theme': 'dark', 'question_count': 5, 'sound_enabled': True, 'notifications_enabled': True, 'language': 'en'}
+2026-01-12 23:38:45,322 - root - INFO - Reloaded 5 questions based on settings
+2026-01-12 23:49:57,008 - root - INFO - Logging initialized.
+2026-01-12 23:49:57,011 - root - INFO - Application started
+2026-01-12 23:49:57,013 - root - INFO - Loaded 10 total questions from DB
+2026-01-12 23:49:59,692 - root - INFO - Loading ML Model: models\risk_model_v20260111_223056.pkl
+2026-01-12 23:49:59,828 - root - INFO - ML Predictor initialized successfully
+2026-01-12 23:49:59,984 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-12 23:49:59,984 - root - ERROR - 
+
+>>> APP INITIALIZED V2.1 <<<
+
+2026-01-12 23:49:59,985 - root - INFO - Using 10 questions based on settings
+2026-01-12 23:57:10,689 - root - INFO - Logging initialized.
+2026-01-12 23:57:10,710 - root - INFO - Application started
+2026-01-12 23:57:10,712 - root - INFO - Loaded 10 total questions from DB
+2026-01-12 23:57:13,351 - root - INFO - Loading ML Model: models\risk_model_v20260111_223056.pkl
+2026-01-12 23:57:13,449 - root - INFO - ML Predictor initialized successfully
+2026-01-12 23:57:13,500 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-12 23:57:13,501 - root - ERROR - 
+
+>>> APP INITIALIZED V2.1 <<<
+
+2026-01-12 23:57:13,501 - root - INFO - Using 10 questions based on settings
+2026-01-12 23:58:06,764 - app.db - ERROR - Unexpected error in DB context: 'Response' object is not subscriptable
+Traceback (most recent call last):
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\db.py", line 32, in safe_db_context
+    yield session
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\analysis\time_based_analysis.py", line 218, in analyze_response_patterns_over_time
+    all_values = [r["response_value"] for r in responses]
+                  ~^^^^^^^^^^^^^^^^^^
+TypeError: 'Response' object is not subscriptable
+2026-01-12 23:58:06,773 - app.analysis.time_based_analysis - ERROR - Error analyzing response patterns for rohan: An unexpected database error occurred.
+2026-01-12 23:58:07,427 - app.ml.clustering - INFO - Model loaded from B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ml\models\clustering\emotional_profile_model.pkl
+2026-01-13 00:11:13,955 - root - INFO - Logging initialized.
+2026-01-13 00:11:13,977 - root - INFO - Application started
+2026-01-13 00:11:13,979 - root - INFO - Loaded 10 total questions from DB
+2026-01-13 00:11:16,514 - root - INFO - Loading ML Model: models\risk_model_v20260111_223056.pkl
+2026-01-13 00:11:16,582 - root - INFO - ML Predictor initialized successfully
+2026-01-13 00:11:16,635 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-13 00:11:16,636 - root - ERROR - 
+
+>>> APP INITIALIZED V2.1 <<<
+
+2026-01-13 00:11:16,637 - root - INFO - Using 10 questions based on settings
+2026-01-13 00:11:25,903 - app.db - ERROR - Unexpected error in DB context: 'Response' object is not subscriptable
+Traceback (most recent call last):
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\db.py", line 32, in safe_db_context
+    yield session
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\analysis\time_based_analysis.py", line 218, in analyze_response_patterns_over_time
+    all_values = [r["response_value"] for r in responses]
+                  ~^^^^^^^^^^^^^^^^^^
+TypeError: 'Response' object is not subscriptable
+2026-01-13 00:11:26,040 - app.analysis.time_based_analysis - ERROR - Error analyzing response patterns for rohan: An unexpected database error occurred.
+2026-01-13 00:11:26,181 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\main.py", line 494, in open_dashboard_flow
+    dashboard.open_dashboard()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\dashboard.py", line 124, in open_dashboard
+    self.show_wellbeing_analytics(wellbeing_frame)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\dashboard.py", line 1043, in show_wellbeing_analytics
+    s_sleep = np.array([sleeps[i] for i in sorted_indices])
+              ^^
+NameError: name 'np' is not defined
+2026-01-13 00:11:26,186 - root - ERROR - Unexpected Error: An unexpected error occurred.
+2026-01-13 00:11:31,385 - app.db - ERROR - Unexpected error in DB context: 'Response' object is not subscriptable
+Traceback (most recent call last):
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\db.py", line 32, in safe_db_context
+    yield session
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\analysis\time_based_analysis.py", line 218, in analyze_response_patterns_over_time
+    all_values = [r["response_value"] for r in responses]
+                  ~^^^^^^^^^^^^^^^^^^
+TypeError: 'Response' object is not subscriptable
+2026-01-13 00:11:31,387 - app.analysis.time_based_analysis - ERROR - Error analyzing response patterns for rohan: An unexpected database error occurred.
+2026-01-13 00:11:31,412 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\main.py", line 494, in open_dashboard_flow
+    dashboard.open_dashboard()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\dashboard.py", line 124, in open_dashboard
+    self.show_wellbeing_analytics(wellbeing_frame)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\dashboard.py", line 1043, in show_wellbeing_analytics
+    s_sleep = np.array([sleeps[i] for i in sorted_indices])
+              ^^
+NameError: name 'np' is not defined
+2026-01-13 00:11:31,413 - root - ERROR - Unexpected Error: An unexpected error occurred.
+2026-01-13 00:18:17,747 - root - INFO - Logging initialized.
+2026-01-13 00:18:17,755 - root - INFO - Application started
+2026-01-13 00:18:17,757 - root - INFO - Loaded 10 total questions from DB
+2026-01-13 00:18:20,033 - root - INFO - Loading ML Model: models\risk_model_v20260111_223056.pkl
+2026-01-13 00:18:20,068 - root - INFO - ML Predictor initialized successfully
+2026-01-13 00:18:20,093 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-13 00:18:20,093 - root - ERROR - 
+
+>>> APP INITIALIZED V2.1 <<<
+
+2026-01-13 00:18:20,093 - root - INFO - Using 10 questions based on settings
+2026-01-13 00:19:42,185 - app.db - ERROR - Unexpected error in DB context: 'Response' object is not subscriptable
+Traceback (most recent call last):
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\db.py", line 32, in safe_db_context
+    yield session
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\analysis\time_based_analysis.py", line 218, in analyze_response_patterns_over_time
+    all_values = [r["response_value"] for r in responses]
+                  ~^^^^^^^^^^^^^^^^^^
+TypeError: 'Response' object is not subscriptable
+2026-01-13 00:19:42,192 - app.analysis.time_based_analysis - ERROR - Error analyzing response patterns for rohan: An unexpected database error occurred.
+2026-01-13 00:19:42,339 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\main.py", line 494, in open_dashboard_flow
+    dashboard.open_dashboard()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\dashboard.py", line 125, in open_dashboard
+    self.show_wellbeing_analytics(wellbeing_frame)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\dashboard.py", line 1052, in show_wellbeing_analytics
+    spl = make_interp_spline(s_sleep, s_mood, k=3)
+  File "C:\Users\Rohan Rathod\AppData\Roaming\Python\Python314\site-packages\scipy\interpolate\_bsplines.py", line 1528, in make_interp_spline
+    raise ValueError("Expect x to not have duplicates")
+ValueError: Expect x to not have duplicates
+2026-01-13 00:19:42,462 - root - ERROR - Unexpected Error: An unexpected error occurred.
+2026-01-13 00:27:08,348 - root - INFO - Logging initialized.
+2026-01-13 00:27:08,362 - root - INFO - Application started
+2026-01-13 00:27:08,369 - root - INFO - Loaded 10 total questions from DB
+2026-01-13 00:27:10,945 - root - INFO - Loading ML Model: models\risk_model_v20260111_223056.pkl
+2026-01-13 00:27:11,008 - root - INFO - ML Predictor initialized successfully
+2026-01-13 00:27:11,046 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-13 00:27:11,057 - root - ERROR - 
+
+>>> APP INITIALIZED V2.1 <<<
+
+2026-01-13 00:27:11,067 - root - INFO - Using 10 questions based on settings
+2026-01-13 00:28:03,980 - app.ml.clustering - INFO - Model loaded from B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ml\models\clustering\emotional_profile_model.pkl
+2026-01-13 00:47:14,002 - root - INFO - Logging initialized.
+2026-01-13 00:47:14,102 - root - INFO - Application started
+2026-01-13 00:47:14,105 - root - INFO - Loaded 10 total questions from DB
+2026-01-13 00:47:16,945 - root - INFO - Loading ML Model: models\risk_model_v20260111_223056.pkl
+2026-01-13 00:47:17,005 - root - INFO - ML Predictor initialized successfully
+2026-01-13 00:47:17,129 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-13 00:47:17,144 - root - ERROR - 
+
+>>> APP INITIALIZED V2.1 <<<
+
+2026-01-13 00:47:17,147 - root - INFO - Using 10 questions based on settings
+2026-01-13 00:47:38,925 - root - INFO - Session started | user=rohan | age=20 | age_group=adult | profession=Student | questions=10
+2026-01-13 00:47:39,080 - root - INFO - Loaded settings for user 4: {'theme': 'dark', 'question_count': 5, 'sound_enabled': True, 'notifications_enabled': True, 'language': 'en'}
+2026-01-13 00:47:39,081 - root - INFO - Reloaded 5 questions based on settings
+2026-01-13 00:47:41,429 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\main.py", line 494, in open_dashboard_flow
+    dashboard.open_dashboard()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\dashboard.py", line 125, in open_dashboard
+    self.show_wellbeing_analytics(wellbeing_frame)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\dashboard.py", line 1027, in show_wellbeing_analytics
+    bg=self.app.colors["primary"], fg="white", relief="flat", padx=15, pady=5).pack(side="right")
+       ^^^^^^^^
+AttributeError: 'AnalyticsDashboard' object has no attribute 'app'
+2026-01-13 00:47:41,441 - root - ERROR - Unexpected Error: An unexpected error occurred.
+2026-01-13 00:52:08,803 - root - INFO - Logging initialized.
+2026-01-13 00:52:08,817 - root - INFO - Application started
+2026-01-13 00:52:08,819 - root - INFO - Loaded 10 total questions from DB
+2026-01-13 00:52:11,299 - root - INFO - Loading ML Model: models\risk_model_v20260111_223056.pkl
+2026-01-13 00:52:11,380 - root - INFO - ML Predictor initialized successfully
+2026-01-13 00:52:11,411 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-13 00:52:11,412 - root - ERROR - 
+
+>>> APP INITIALIZED V2.1 <<<
+
+2026-01-13 00:52:11,412 - root - INFO - Using 10 questions based on settings
+2026-01-13 00:52:21,598 - app.ml.clustering - INFO - Model loaded from B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ml\models\clustering\emotional_profile_model.pkl
+2026-01-13 00:52:31,500 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\dashboard.py", line 1022, in open_history
+    from app.ui.daily_view import DailyHistoryView
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 3, in <module>
+    from tkcalendar import DateEntry
+ModuleNotFoundError: No module named 'tkcalendar'
+2026-01-13 00:52:31,516 - root - ERROR - Unexpected Error: An unexpected error occurred.
+2026-01-13 00:55:24,857 - root - INFO - Logging initialized.
+2026-01-13 00:55:24,857 - root - INFO - Application started
+2026-01-13 00:55:24,858 - root - INFO - Loaded 10 total questions from DB
+2026-01-13 00:55:27,403 - root - INFO - Loading ML Model: models\risk_model_v20260111_223056.pkl
+2026-01-13 00:55:27,457 - root - INFO - ML Predictor initialized successfully
+2026-01-13 00:55:27,491 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-13 00:55:27,497 - root - ERROR - 
+
+>>> APP INITIALIZED V2.1 <<<
+
+2026-01-13 00:55:27,498 - root - INFO - Using 10 questions based on settings
+2026-01-13 00:55:37,505 - app.ml.clustering - INFO - Model loaded from B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ml\models\clustering\emotional_profile_model.pkl
+2026-01-13 00:55:45,936 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\dashboard.py", line 1024, in open_history
+    DailyHistoryView(top, self.parent_root, self.username)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 29, in __init__
+    self.setup_ui()
+    ~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 69, in setup_ui
+    self.load_data()
+    ~~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 95, in load_data
+    self.render_empty_state(target_date)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 150, in render_empty_state
+    bg=self.colors["bg"], fg=self.colors["text_secondary"]).pack(pady=10)
+                             ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+KeyError: 'text_secondary'
+2026-01-13 00:55:45,942 - root - ERROR - Unexpected Error: An unexpected error occurred.
+2026-01-13 00:59:22,502 - root - INFO - Logging initialized.
+2026-01-13 00:59:22,593 - root - INFO - Application started
+2026-01-13 00:59:22,594 - root - INFO - Loaded 10 total questions from DB
+2026-01-13 00:59:24,985 - root - INFO - Loading ML Model: models\risk_model_v20260111_223056.pkl
+2026-01-13 00:59:25,041 - root - INFO - ML Predictor initialized successfully
+2026-01-13 00:59:25,080 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-13 00:59:25,081 - root - ERROR - 
+
+>>> APP INITIALIZED V2.1 <<<
+
+2026-01-13 00:59:25,081 - root - INFO - Using 10 questions based on settings
+2026-01-13 00:59:54,510 - app.ml.clustering - INFO - Model loaded from B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ml\models\clustering\emotional_profile_model.pkl
+2026-01-13 01:00:07,213 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 104, in load_data
+    self.render_content(entry, target_date)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 133, in render_content
+    self.create_stat_card(cards_frame, "Sleep Goal", f"{data['sleep']}h", data['sleep']/8, "#8B5CF6") # Purple
+                                                                          ~~~~~~~~~~~~~^~
+TypeError: unsupported operand type(s) for /: 'NoneType' and 'int'
+2026-01-13 01:00:07,225 - root - ERROR - Unexpected Error: An unexpected error occurred.
+2026-01-13 01:02:14,656 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "C:\Python314\Lib\tkinter\__init__.py", line 876, in callit
+    func(*args, **kw)
+    ~~~~^^^^^^^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\main.py", line 643, in launch_main_app
+    root.mainloop()
+    ~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\tkinter\__init__.py", line 1613, in mainloop
+    self.tk.mainloop(n)
+    ~~~~~~~~~~~~~~~~^^^
+KeyboardInterrupt
+2026-01-13 01:02:14,658 - root - ERROR - Unexpected Error: An unexpected error occurred.
+2026-01-13 01:02:36,553 - root - INFO - Logging initialized.
+2026-01-13 01:02:36,554 - root - INFO - Application started
+2026-01-13 01:02:36,555 - root - INFO - Loaded 10 total questions from DB
+2026-01-13 01:02:38,899 - root - INFO - Loading ML Model: models\risk_model_v20260111_223056.pkl
+2026-01-13 01:02:38,959 - root - INFO - ML Predictor initialized successfully
+2026-01-13 01:02:39,013 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-13 01:02:39,022 - root - ERROR - 
+
+>>> APP INITIALIZED V2.1 <<<
+
+2026-01-13 01:02:39,025 - root - INFO - Using 10 questions based on settings
+2026-01-13 01:02:50,091 - app.ml.clustering - INFO - Model loaded from B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ml\models\clustering\emotional_profile_model.pkl
+2026-01-13 01:02:58,510 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 104, in load_data
+    self.render_content(entry, target_date)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 142, in render_content
+    bg=self.colors["surface"], fg=self.colors["text_primary"]).pack(anchor="w", mb=10)
+                                                               ~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2616, in pack_configure
+    self.tk.call(
+    ~~~~~~~~~~~~^
+          ('pack', 'configure', self._w)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          + self._options(cnf, kw))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+_tkinter.TclError: bad option "-mb": must be -after, -anchor, -before, -expand, -fill, -in, -ipadx, -ipady, -padx, -pady, or -side
+2026-01-13 01:02:58,514 - root - ERROR - Interface Error: A graphical interface error occurred.
+2026-01-13 01:03:09,759 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 104, in load_data
+    self.render_content(entry, target_date)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 142, in render_content
+    bg=self.colors["surface"], fg=self.colors["text_primary"]).pack(anchor="w", mb=10)
+                                                               ~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2616, in pack_configure
+    self.tk.call(
+    ~~~~~~~~~~~~^
+          ('pack', 'configure', self._w)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          + self._options(cnf, kw))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+_tkinter.TclError: bad option "-mb": must be -after, -anchor, -before, -expand, -fill, -in, -ipadx, -ipady, -padx, -pady, or -side
+2026-01-13 01:03:09,761 - root - ERROR - Interface Error: A graphical interface error occurred.
+2026-01-13 01:05:12,989 - root - INFO - Logging initialized.
+2026-01-13 01:05:12,994 - root - INFO - Application started
+2026-01-13 01:05:13,014 - root - INFO - Loaded 10 total questions from DB
+2026-01-13 01:05:15,751 - root - INFO - Loading ML Model: models\risk_model_v20260111_223056.pkl
+2026-01-13 01:05:15,793 - root - INFO - ML Predictor initialized successfully
+2026-01-13 01:05:15,826 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-13 01:05:15,830 - root - ERROR - 
+
+>>> APP INITIALIZED V2.1 <<<
+
+2026-01-13 01:05:15,837 - root - INFO - Using 10 questions based on settings
+2026-01-13 01:05:24,376 - app.ml.clustering - INFO - Model loaded from B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ml\models\clustering\emotional_profile_model.pkl
+2026-01-13 01:05:35,397 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:05:35,399 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:05:35,407 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:05:35,408 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:05:44,899 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:05:44,901 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:05:44,907 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:05:44,908 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:05:49,581 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:05:49,583 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:05:49,592 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:05:49,594 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:11:54,804 - root - INFO - Logging initialized.
+2026-01-13 01:11:54,820 - root - INFO - Application started
+2026-01-13 01:11:54,829 - root - INFO - Loaded 10 total questions from DB
+2026-01-13 01:11:57,302 - root - INFO - Loading ML Model: models\risk_model_v20260111_223056.pkl
+2026-01-13 01:11:57,350 - root - INFO - ML Predictor initialized successfully
+2026-01-13 01:11:57,400 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-13 01:11:57,414 - root - ERROR - 
+
+>>> APP INITIALIZED V2.1 <<<
+
+2026-01-13 01:11:57,426 - root - INFO - Using 10 questions based on settings
+2026-01-13 01:12:04,846 - app.ml.clustering - INFO - Model loaded from B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ml\models\clustering\emotional_profile_model.pkl
+2026-01-13 01:12:09,878 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\dashboard.py", line 1024, in open_history
+    DailyHistoryView(top, self, self.username)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 41, in __init__
+    self.setup_ui()
+    ~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 90, in setup_ui
+    self.setup_chart_ui()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 98, in setup_chart_ui
+    bg=self.colors["surface"], fg=self.colors["text_primary"]).pack(anchor="w", mb=15)
+                                                               ~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2616, in pack_configure
+    self.tk.call(
+    ~~~~~~~~~~~~^
+          ('pack', 'configure', self._w)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          + self._options(cnf, kw))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+_tkinter.TclError: bad option "-mb": must be -after, -anchor, -before, -expand, -fill, -in, -ipadx, -ipady, -padx, -pady, or -side
+2026-01-13 01:12:09,887 - root - ERROR - Interface Error: A graphical interface error occurred.
+2026-01-13 01:12:19,231 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 142, in load_data
+    self.render_journal_text(entry)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 272, in render_journal_text
+    bg=self.colors["surface"], fg=self.colors["text_primary"]).pack(anchor="w", mb=10)
+                                                               ~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2616, in pack_configure
+    self.tk.call(
+    ~~~~~~~~~~~~^
+          ('pack', 'configure', self._w)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          + self._options(cnf, kw))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+_tkinter.TclError: bad option "-mb": must be -after, -anchor, -before, -expand, -fill, -in, -ipadx, -ipady, -padx, -pady, or -side
+2026-01-13 01:12:19,233 - root - ERROR - Interface Error: A graphical interface error occurred.
+2026-01-13 01:12:28,743 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 142, in load_data
+    self.render_journal_text(entry)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 272, in render_journal_text
+    bg=self.colors["surface"], fg=self.colors["text_primary"]).pack(anchor="w", mb=10)
+                                                               ~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2616, in pack_configure
+    self.tk.call(
+    ~~~~~~~~~~~~^
+          ('pack', 'configure', self._w)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          + self._options(cnf, kw))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+_tkinter.TclError: bad option "-mb": must be -after, -anchor, -before, -expand, -fill, -in, -ipadx, -ipady, -padx, -pady, or -side
+2026-01-13 01:12:28,745 - root - ERROR - Interface Error: A graphical interface error occurred.
+2026-01-13 01:14:56,662 - root - INFO - Logging initialized.
+2026-01-13 01:14:56,668 - root - INFO - Application started
+2026-01-13 01:14:56,670 - root - INFO - Loaded 10 total questions from DB
+2026-01-13 01:14:59,057 - root - INFO - Loading ML Model: models\risk_model_v20260111_223056.pkl
+2026-01-13 01:14:59,128 - root - INFO - ML Predictor initialized successfully
+2026-01-13 01:14:59,164 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-13 01:14:59,164 - root - ERROR - 
+
+>>> APP INITIALIZED V2.1 <<<
+
+2026-01-13 01:14:59,164 - root - INFO - Using 10 questions based on settings
+2026-01-13 01:15:09,304 - app.ml.clustering - INFO - Model loaded from B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ml\models\clustering\emotional_profile_model.pkl
+2026-01-13 01:15:13,754 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:15:13,755 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:15:21,565 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:15:21,566 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:15:26,518 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:15:26,519 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:15:33,811 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:15:33,812 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:15:34,700 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:15:34,701 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:15:35,543 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:15:35,543 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:15:36,663 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:15:36,664 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:15:37,585 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:15:37,586 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:15:39,261 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:15:39,262 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:15:41,215 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:15:41,216 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:15:42,089 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:15:42,090 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:15:43,254 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:15:43,255 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:15:43,963 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:15:43,964 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:15:44,712 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:15:44,713 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:16:00,378 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:16:00,379 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:16:02,530 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:16:02,530 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:16:04,392 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:16:04,393 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:16:05,466 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:16:05,466 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:16:06,595 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:16:06,596 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:16:07,471 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:16:07,472 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:16:09,746 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:16:09,747 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:16:11,369 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:16:11,370 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:16:12,266 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:16:12,267 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:17:27,332 - app.ml.clustering - INFO - Model loaded from B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ml\models\clustering\emotional_profile_model.pkl
+2026-01-13 01:17:31,321 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\dashboard.py", line 1024, in open_history
+    DailyHistoryView(top, self, self.username)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 41, in __init__
+    self.setup_ui()
+    ~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 90, in setup_ui
+    self.setup_chart_ui()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 107, in setup_chart_ui
+    self.create_metric_btn(sidebar, "🌙 Sleep Hours", "sleep", "#8B5CF6")
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 123, in create_metric_btn
+    bg=self.colors["bg_tertiary"], fg=self.colors["text_primary"],
+       ~~~~~~~~~~~^^^^^^^^^^^^^^^
+KeyError: 'bg_tertiary'
+2026-01-13 01:17:31,334 - root - ERROR - Unexpected Error: An unexpected error occurred.
+2026-01-13 01:20:19,580 - root - INFO - Logging initialized.
+2026-01-13 01:20:19,615 - root - INFO - Application started
+2026-01-13 01:20:19,666 - root - INFO - Loaded 10 total questions from DB
+2026-01-13 01:20:22,184 - root - INFO - Loading ML Model: models\risk_model_v20260111_223056.pkl
+2026-01-13 01:20:22,233 - root - INFO - ML Predictor initialized successfully
+2026-01-13 01:20:22,264 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-13 01:20:22,265 - root - ERROR - 
+
+>>> APP INITIALIZED V2.1 <<<
+
+2026-01-13 01:20:22,265 - root - INFO - Using 10 questions based on settings
+2026-01-13 01:20:37,220 - app.ml.clustering - INFO - Model loaded from B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ml\models\clustering\emotional_profile_model.pkl
+2026-01-13 01:20:49,325 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\dashboard.py", line 1022, in open_history
+    from app.ui.daily_view import DailyHistoryView
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 31
+    }
+    ^
+SyntaxError: unmatched '}'
+2026-01-13 01:20:49,338 - root - ERROR - Unexpected Error: An unexpected error occurred.
+2026-01-13 01:26:03,721 - root - INFO - Logging initialized.
+2026-01-13 01:26:03,734 - root - INFO - Application started
+2026-01-13 01:26:03,735 - root - INFO - Loaded 10 total questions from DB
+2026-01-13 01:26:06,123 - root - INFO - Loading ML Model: models\risk_model_v20260111_223056.pkl
+2026-01-13 01:26:06,177 - root - INFO - ML Predictor initialized successfully
+2026-01-13 01:26:06,228 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-13 01:26:06,243 - root - ERROR - 
+
+>>> APP INITIALIZED V2.1 <<<
+
+2026-01-13 01:26:06,262 - root - INFO - Using 10 questions based on settings
+2026-01-13 01:26:24,624 - app.ml.clustering - INFO - Model loaded from B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ml\models\clustering\emotional_profile_model.pkl
+2026-01-13 01:26:28,679 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:26:28,680 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:26:32,071 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:26:32,073 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:26:33,035 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:26:33,044 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:26:35,211 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:26:35,224 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:26:37,132 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:26:37,141 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:26:39,770 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:26:39,779 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:26:40,536 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:26:40,542 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:26:41,406 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:26:41,413 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:26:42,567 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:26:42,571 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:26:43,484 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:26:43,489 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:26:44,228 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:26:44,231 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:26:45,532 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:26:45,538 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:26:46,261 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:26:46,264 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:26:46,987 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:26:46,999 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:27:04,962 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:27:04,962 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:27:08,256 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:27:08,257 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:30:18,140 - root - INFO - Logging initialized.
+2026-01-13 01:30:18,157 - root - INFO - Application started
+2026-01-13 01:30:18,160 - root - INFO - Loaded 10 total questions from DB
+2026-01-13 01:30:20,560 - root - INFO - Loading ML Model: models\risk_model_v20260111_223056.pkl
+2026-01-13 01:30:20,707 - root - INFO - ML Predictor initialized successfully
+2026-01-13 01:30:20,748 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-13 01:30:20,762 - root - ERROR - 
+
+>>> APP INITIALIZED V2.1 <<<
+
+2026-01-13 01:30:20,770 - root - INFO - Using 10 questions based on settings
+2026-01-13 01:30:30,038 - app.ml.clustering - INFO - Model loaded from B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ml\models\clustering\emotional_profile_model.pkl
+2026-01-13 01:30:39,876 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:30:39,876 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:30:45,280 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:30:45,281 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:30:48,718 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:30:48,719 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:30:51,712 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:30:51,712 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:30:55,241 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:30:55,242 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:30:56,091 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:30:56,093 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:30:56,887 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:30:56,888 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:30:57,630 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:30:57,631 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:30:59,723 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:30:59,724 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:31:02,302 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:31:02,303 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:31:03,161 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:31:03,162 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:31:04,755 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:31:04,756 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:31:06,146 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:31:06,147 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:31:12,125 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:31:12,126 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:32:04,500 - app.ml.clustering - INFO - Model loaded from B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ml\models\clustering\emotional_profile_model.pkl
+2026-01-13 01:32:07,855 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:32:07,855 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:37:56,302 - root - INFO - Logging initialized.
+2026-01-13 01:37:56,411 - root - INFO - Application started
+2026-01-13 01:37:56,422 - root - INFO - Loaded 10 total questions from DB
+2026-01-13 01:37:59,063 - root - INFO - Loading ML Model: models\risk_model_v20260111_223056.pkl
+2026-01-13 01:37:59,139 - root - INFO - ML Predictor initialized successfully
+2026-01-13 01:37:59,187 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-13 01:37:59,197 - root - ERROR - 
+
+>>> APP INITIALIZED V2.1 <<<
+
+2026-01-13 01:37:59,197 - root - INFO - Using 10 questions based on settings
+2026-01-13 01:38:09,783 - app.ml.clustering - INFO - Model loaded from B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ml\models\clustering\emotional_profile_model.pkl
+2026-01-13 01:38:15,196 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:15,198 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:15,222 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:15,226 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:24,940 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:24,941 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:24,942 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:24,953 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:24,954 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:26,168 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:26,169 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:26,170 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:26,172 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:26,188 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:26,189 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:27,409 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:27,411 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:27,412 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:27,414 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:27,415 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:27,431 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:27,433 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:28,457 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:28,458 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:28,460 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:28,461 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:28,462 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:28,463 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:28,477 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:28,478 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:28,690 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:28,691 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:28,693 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:28,694 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:28,695 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:28,696 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:28,697 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:28,712 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:28,714 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:29,410 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:29,411 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:29,413 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:29,414 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:29,415 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:29,416 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:29,417 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:29,418 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:29,431 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:29,432 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:30,483 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:30,484 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:30,485 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:30,486 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:30,486 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:30,487 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:30,488 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:30,489 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:30,489 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:30,501 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:30,503 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:31,232 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:31,232 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:31,233 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:31,234 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:31,234 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:31,235 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:31,236 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:31,237 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:31,237 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:31,238 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:31,249 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:31,250 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:31,946 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:31,947 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:31,948 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:31,948 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:31,949 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:31,950 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:31,951 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:31,951 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:31,952 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:31,953 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:31,954 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:31,967 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:31,968 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:32,780 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:32,781 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:32,781 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:32,783 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:32,783 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:32,784 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:32,785 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:32,785 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:32,786 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:32,787 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:32,787 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:32,788 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:32,802 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:38:32,803 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:41:22,211 - root - INFO - Logging initialized.
+2026-01-13 01:41:22,215 - root - INFO - Application started
+2026-01-13 01:41:22,220 - root - INFO - Loaded 10 total questions from DB
+2026-01-13 01:41:24,750 - root - INFO - Loading ML Model: models\risk_model_v20260111_223056.pkl
+2026-01-13 01:41:24,799 - root - INFO - ML Predictor initialized successfully
+2026-01-13 01:41:24,879 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-13 01:41:24,883 - root - ERROR - 
+
+>>> APP INITIALIZED V2.1 <<<
+
+2026-01-13 01:41:24,892 - root - INFO - Using 10 questions based on settings
+2026-01-13 01:41:43,369 - app.ml.clustering - INFO - Model loaded from B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ml\models\clustering\emotional_profile_model.pkl
+2026-01-13 01:41:46,862 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:41:46,863 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:41:58,717 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:41:58,719 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:42:00,168 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:42:00,169 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:42:02,428 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:42:02,430 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:42:03,328 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:42:03,329 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:42:06,584 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:42:06,586 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:42:07,458 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:42:07,460 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:42:08,499 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:42:08,502 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:51:12,596 - root - INFO - Logging initialized.
+2026-01-13 01:51:12,599 - root - INFO - Application started
+2026-01-13 01:51:12,600 - root - INFO - Loaded 10 total questions from DB
+2026-01-13 01:51:15,022 - root - INFO - Loading ML Model: models\risk_model_v20260111_223056.pkl
+2026-01-13 01:51:15,086 - root - INFO - ML Predictor initialized successfully
+2026-01-13 01:51:15,149 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-13 01:51:15,155 - root - ERROR - 
+
+>>> APP INITIALIZED V2.1 <<<
+
+2026-01-13 01:51:15,156 - root - INFO - Using 10 questions based on settings
+2026-01-13 01:51:49,024 - app.ml.clustering - INFO - Model loaded from B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ml\models\clustering\emotional_profile_model.pkl
+2026-01-13 01:51:52,987 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\dashboard.py", line 1024, in open_history
+    DailyHistoryView(top, self, self.username)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 44, in __init__
+    self.setup_ui()
+    ~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 96, in setup_ui
+    self.load_data()
+    ~~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 144, in load_data
+    self.render_cards(entry)
+    ~~~~~~~~~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 274, in render_cards
+    self.create_stat_card(self.cards_container, "Sleep Goal", f"{data['sleep']}h", data['sleep']/8, "#8B5CF6")
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 304, in create_stat_card
+    canvas.create_arc(x-r, y-r, x+r, y+r, start=90, extent=extent, style=tk.ARC, outline=color, width=width, capstyle=tk.ROUND)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\tkinter\__init__.py", line 3002, in create_arc
+    return self._create('arc', args, kw)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2996, in _create
+    return self.tk.getint(self.tk.call(
+                          ~~~~~~~~~~~~^
+        self._w, 'create', itemType,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        *(args + self._options(cnf, kw))))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_tkinter.TclError: unknown option "-capstyle"
+2026-01-13 01:51:52,995 - root - ERROR - Interface Error: A graphical interface error occurred.
+2026-01-13 01:52:00,297 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:52:00,298 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 01:52:05,481 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 144, in load_data
+    self.render_cards(entry)
+    ~~~~~~~~~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 274, in render_cards
+    self.create_stat_card(self.cards_container, "Sleep Goal", f"{data['sleep']}h", data['sleep']/8, "#8B5CF6")
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\daily_view.py", line 304, in create_stat_card
+    canvas.create_arc(x-r, y-r, x+r, y+r, start=90, extent=extent, style=tk.ARC, outline=color, width=width, capstyle=tk.ROUND)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\tkinter\__init__.py", line 3002, in create_arc
+    return self._create('arc', args, kw)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2996, in _create
+    return self.tk.getint(self.tk.call(
+                          ~~~~~~~~~~~~^
+        self._w, 'create', itemType,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        *(args + self._options(cnf, kw))))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_tkinter.TclError: unknown option "-capstyle"
+2026-01-13 01:52:05,483 - root - ERROR - Interface Error: A graphical interface error occurred.
+2026-01-13 02:00:16,307 - root - INFO - Logging initialized.
+2026-01-13 02:00:16,408 - root - INFO - Application started
+2026-01-13 02:00:16,411 - root - INFO - Loaded 10 total questions from DB
+2026-01-13 02:00:19,074 - root - INFO - Loading ML Model: models\risk_model_v20260111_223056.pkl
+2026-01-13 02:00:19,162 - root - INFO - ML Predictor initialized successfully
+2026-01-13 02:00:19,234 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-13 02:00:19,244 - root - ERROR - 
+
+>>> APP INITIALIZED V2.1 <<<
+
+2026-01-13 02:00:19,245 - root - INFO - Using 10 questions based on settings
+2026-01-13 02:00:34,142 - app.ml.clustering - INFO - Model loaded from B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ml\models\clustering\emotional_profile_model.pkl
+2026-01-13 02:01:06,903 - app.ml.clustering - INFO - Model loaded from B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ml\models\clustering\emotional_profile_model.pkl
+2026-01-13 02:01:11,037 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:01:11,038 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:01:24,056 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:01:24,058 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:01:25,940 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:01:25,940 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:01:29,533 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:01:29,535 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:01:30,565 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:01:30,567 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:01:32,071 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:01:32,072 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:01:32,997 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:01:32,999 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:08:05,369 - root - INFO - Logging initialized.
+2026-01-13 02:08:05,392 - root - INFO - Application started
+2026-01-13 02:08:05,405 - root - INFO - Loaded 10 total questions from DB
+2026-01-13 02:08:08,043 - root - INFO - Loading ML Model: models\risk_model_v20260111_223056.pkl
+2026-01-13 02:08:08,096 - root - INFO - ML Predictor initialized successfully
+2026-01-13 02:08:08,136 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-13 02:08:08,138 - root - ERROR - 
+
+>>> APP INITIALIZED V2.1 <<<
+
+2026-01-13 02:08:08,139 - root - INFO - Using 10 questions based on settings
+2026-01-13 02:09:42,183 - app.ml.clustering - INFO - Model loaded from B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ml\models\clustering\emotional_profile_model.pkl
+2026-01-13 02:09:50,475 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:09:50,476 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:09:57,008 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:09:57,009 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:09:59,890 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:09:59,892 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:10:05,166 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:10:05,170 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:10:46,005 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:10:46,006 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:10:46,781 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:10:46,782 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:10:47,596 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:10:47,598 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:10:48,306 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:10:48,307 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:10:49,139 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:10:49,141 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:12:36,453 - root - INFO - Logging initialized.
+2026-01-13 02:12:36,453 - root - INFO - Application started
+2026-01-13 02:12:36,454 - root - INFO - Loaded 10 total questions from DB
+2026-01-13 02:12:38,705 - root - INFO - Loading ML Model: models\risk_model_v20260111_223056.pkl
+2026-01-13 02:12:38,740 - root - INFO - ML Predictor initialized successfully
+2026-01-13 02:12:38,763 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-13 02:12:38,763 - root - ERROR - 
+
+>>> APP INITIALIZED V2.1 <<<
+
+2026-01-13 02:12:38,763 - root - INFO - Using 10 questions based on settings
+2026-01-13 02:14:16,167 - root - INFO - Logging initialized.
+2026-01-13 02:14:16,168 - root - INFO - Application started
+2026-01-13 02:14:16,169 - root - INFO - Loaded 10 total questions from DB
+2026-01-13 02:14:18,552 - root - INFO - Loading ML Model: models\risk_model_v20260111_223056.pkl
+2026-01-13 02:14:18,605 - root - INFO - ML Predictor initialized successfully
+2026-01-13 02:14:18,660 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-13 02:14:18,660 - root - ERROR - 
+
+>>> APP INITIALIZED V2.1 <<<
+
+2026-01-13 02:14:18,661 - root - INFO - Using 10 questions based on settings
+2026-01-13 02:15:28,074 - app.ml.clustering - INFO - Model loaded from B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ml\models\clustering\emotional_profile_model.pkl
+2026-01-13 02:15:35,080 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:15:35,081 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:15:41,802 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:15:41,803 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:15:42,491 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:15:42,492 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:15:43,267 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:15:43,268 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:15:44,020 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:15:44,021 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:15:47,402 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-01-13 02:15:47,403 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.

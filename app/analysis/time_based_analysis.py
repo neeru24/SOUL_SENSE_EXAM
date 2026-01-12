@@ -215,7 +215,7 @@ class TimeBasedAnalyzer:
                         }
                 
                 # Calculate overall response consistency
-                all_values = [r["response_value"] for r in responses]
+                all_values = [r.response_value for r in responses]
                 if len(all_values) > 1:
                     pattern_analysis["overall_response_std_dev"] = stdev(all_values)
                     pattern_analysis["overall_average_response"] = mean(all_values)

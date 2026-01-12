@@ -1,13 +1,13 @@
 # journal_feature.py - Fix the imports at the top
 import tkinter as tk
 from tkinter import ttk, messagebox, scrolledtext
-from datetime import datetime
+from datetime import datetime, timedelta
 import sqlite3
 
 import logging
 from app.i18n_manager import get_i18n
 
-from sqlalchemy import desc
+from sqlalchemy import desc, text
 from app.models import JournalEntry
 from app.db import get_session
 
@@ -21,8 +21,9 @@ from nltk.sentiment import SentimentIntensityAnalyzer
 
 
 class JournalFeature:
-    def __init__(self, parent_root):
+    def __init__(self, parent_root, app=None):
         self.parent_root = parent_root
+        self.app = app # Store app reference for theming
 
         self.i18n = get_i18n()
         # Database setup is handled efficiently by app.db.check_db_state or migration
@@ -57,29 +58,54 @@ class JournalFeature:
                 font=("Arial", 12)).pack(pady=5)
         
         # --- Metrics Section (Issues #255, #267, #272) ---
-        metrics_frame = tk.LabelFrame(self.journal_window, text=self.i18n.get("journal.metrics_title"), font=("Arial", 11, "bold"))
-        metrics_frame.pack(pady=5, padx=20, fill="x")
+        # Using a Frame to center or limit width if needed
+        metrics_container = tk.Frame(self.journal_window)
+        metrics_container.pack(fill=tk.X, padx=20, pady=5)
+                           
+        metrics_frame = tk.LabelFrame(metrics_container, text=self.i18n.get("journal.metrics_title"), font=("Arial", 14, "bold"))
+        metrics_frame.pack(anchor=tk.CENTER, ipadx=50, pady=5) # Centered and wider
         
         # Grid Configuration
+        # Grid Configuration for Metrics
         metrics_frame.columnconfigure((1, 3), weight=1)
         
+        def create_slider(parent, label_text, from_, to_, row, col, variable, resolution=1):
+            # Label
+            tk.Label(parent, text=label_text, font=("Arial", 12)).grid(row=row, column=col, padx=10, pady=8, sticky="w")
+            
+            # Container for Slider + Value Label
+            container = tk.Frame(parent)
+            container.grid(row=row, column=col+1, padx=10, pady=8, sticky="ew")
+            
+            # Value Label (Updates dynamically)
+            val_label = tk.Label(container, text=f"{variable.get():g}", width=4, font=("Arial", 12, "bold"))
+            val_label.pack(side=tk.RIGHT)
+            
+            # Slider command
+            def on_scroll(val):
+                v = float(val)
+                if resolution == 1: v = int(v)
+                else: v = round(v, 1)
+                variable.set(v)
+                val_label.config(text=f"{v:g}")
+
+            # Slider
+            scale = ttk.Scale(container, from_=from_, to=to_, orient="horizontal", variable=variable, command=on_scroll)
+            scale.pack(side=tk.LEFT, fill=tk.X, expand=True)
+
         # Row 0: Sleep Duration & Quality
-        tk.Label(metrics_frame, text=self.i18n.get("journal.sleep_hours")).grid(row=0, column=0, padx=5, pady=5, sticky="w")
         self.sleep_hours_var = tk.DoubleVar(value=7.0)
-        tk.Scale(metrics_frame, from_=0, to=16, resolution=0.5, orient="horizontal", variable=self.sleep_hours_var).grid(row=0, column=1, padx=5, pady=5, sticky="ew")
-        
-        tk.Label(metrics_frame, text=self.i18n.get("journal.sleep_quality")).grid(row=0, column=2, padx=5, pady=5, sticky="w")
+        create_slider(metrics_frame, self.i18n.get("journal.sleep_hours"), 0, 16, 0, 0, self.sleep_hours_var, 0.5)
+
         self.sleep_quality_var = tk.IntVar(value=7)
-        tk.Scale(metrics_frame, from_=1, to=10, orient="horizontal", variable=self.sleep_quality_var).grid(row=0, column=3, padx=5, pady=5, sticky="ew")
+        create_slider(metrics_frame, self.i18n.get("journal.sleep_quality"), 1, 10, 0, 2, self.sleep_quality_var, 1)
         
         # Row 1: Energy & Work
-        tk.Label(metrics_frame, text=self.i18n.get("journal.energy_level")).grid(row=1, column=0, padx=5, pady=5, sticky="w")
         self.energy_level_var = tk.IntVar(value=7)
-        tk.Scale(metrics_frame, from_=1, to=10, orient="horizontal", variable=self.energy_level_var).grid(row=1, column=1, padx=5, pady=5, sticky="ew")
+        create_slider(metrics_frame, self.i18n.get("journal.energy_level"), 1, 10, 1, 0, self.energy_level_var, 1)
         
-        tk.Label(metrics_frame, text=self.i18n.get("journal.work_hours")).grid(row=1, column=2, padx=5, pady=5, sticky="w")
         self.work_hours_var = tk.DoubleVar(value=8.0)
-        tk.Scale(metrics_frame, from_=0, to=16, resolution=0.5, orient="horizontal", variable=self.work_hours_var).grid(row=1, column=3, padx=5, pady=5, sticky="ew")
+        create_slider(metrics_frame, self.i18n.get("journal.work_hours"), 0, 16, 1, 2, self.work_hours_var, 0.5)
         # ------------------------------------------------
         
         # Text area for journal entry
@@ -203,8 +229,11 @@ class JournalFeature:
             session.add(entry)
             session.commit()
             
-            # Show analysis results
-            self.show_analysis_results(sentiment_score, emotional_patterns)
+            # Check for expanded health insights (PR 1.6)
+            health_insights = self.generate_health_insights()
+            
+            # Show analysis results with insights
+            self.show_analysis_results(sentiment_score, emotional_patterns, health_insights)
             
             # Clear text area
             self.text_area.delete("1.0", tk.END)
@@ -216,39 +245,86 @@ class JournalFeature:
         finally:
             session.close()
     
-    def show_analysis_results(self, sentiment_score, patterns):
+    def show_analysis_results(self, sentiment_score, patterns, nudge_advice=None):
         """Display AI analysis results"""
+        # Determine colors based on app theme if available
+        bg_color = "#f5f5f5"
+        card_bg = "white"
+        text_color = "black"
+        subtext_color = "#666"
+        nudge_bg = "#FFF3E0"
+        nudge_text_color = "#333"
+        nudge_title_color = "#EF6C00"
+        
+        if self.app and hasattr(self.app, 'colors'):
+            bg_color = self.app.colors.get("bg_secondary", "#f5f5f5")
+            card_bg = self.app.colors.get("surface", "white")
+            text_color = self.app.colors.get("text_primary", "black")
+            subtext_color = self.app.colors.get("text_secondary", "#666")
+            # Adjust nudge colors for dark mode if needed
+            if getattr(self.app, 'current_theme', 'light') == 'dark':
+                nudge_bg = self.app.colors.get("bg_tertiary", "#334155")
+                nudge_text_color = self.app.colors.get("text_primary", "#F8FAFC")
+                nudge_title_color = "#FFA726" # Lighter orange for dark mode
+        
         result_window = tk.Toplevel(self.journal_window)
         result_window.title(self.i18n.get("journal.analysis_title"))
-        result_window.geometry("400x300")
+        result_window.geometry("450x450")
+        result_window.configure(bg=bg_color)
         
-        tk.Label(result_window, text=self.i18n.get("journal.emotional_analysis"), 
-                font=("Arial", 16, "bold")).pack(pady=10)
+        main_frame = tk.Frame(result_window, bg=bg_color)
+        main_frame.pack(fill=tk.BOTH, expand=True, padx=20, pady=20)
+        
+        # Header
+        tk.Label(main_frame, text=self.i18n.get("journal.emotional_analysis"), 
+                font=("Arial", 16, "bold"), bg=bg_color, fg=text_color).pack(pady=(0, 15))
+        
+        # Sentiment Card
+        card_frame = tk.Frame(main_frame, bg=card_bg, relief=tk.RIDGE, bd=1)
+        card_frame.pack(fill=tk.X, pady=5)
         
         # Sentiment interpretation
         if sentiment_score > 20:
             sentiment_text = self.i18n.get("journal.positive_tone")
-            color = "green"
+            color = "#4CAF50" # Green (keep standard colors for status)
+            emoji = "😊"
         elif sentiment_score < -20:
             sentiment_text = self.i18n.get("journal.negative_tone")
-            color = "red"
+            color = "#F44336" # Red
+            emoji = "😔"
         else:
             sentiment_text = self.i18n.get("journal.neutral_tone")
-            color = "blue"
+            color = "#2196F3" # Blue
+            emoji = "😐"
         
-        tk.Label(result_window, text=self.i18n.get("journal.sentiment_score", score=f"{sentiment_score:.1f}"), 
-                font=("Arial", 12)).pack(pady=5)
-        tk.Label(result_window, text=sentiment_text, 
-                font=("Arial", 12), fg=color).pack(pady=5)
+        tk.Label(card_frame, text=f"{emoji} Sentiment Score: {sentiment_score:.1f}", 
+                font=("Arial", 14, "bold"), fg=color, bg=card_bg).pack(pady=(15, 5))
+        tk.Label(card_frame, text=sentiment_text, 
+                font=("Arial", 11), fg=subtext_color, bg=card_bg).pack(pady=(0, 15))
         
-        tk.Label(result_window, text=self.i18n.get("journal.emotional_patterns"), 
-                font=("Arial", 12, "bold")).pack(pady=(15,5))
-        tk.Label(result_window, text=patterns, 
-                font=("Arial", 11), wraplength=350).pack(pady=5)
+        # Patterns Section
+        tk.Label(main_frame, text=self.i18n.get("journal.emotional_patterns"), 
+                font=("Arial", 12, "bold"), bg=bg_color, fg=text_color).pack(pady=(15, 5))
         
-        tk.Button(result_window, text=self.i18n.get("journal.close"), 
+        lbl_patterns = tk.Label(main_frame, text=patterns, 
+                font=("Arial", 11), wraplength=380, bg=bg_color, fg=text_color)
+        lbl_patterns.pack(pady=5)
+        
+        # --- Nudge Section (New) ---
+        if nudge_advice:
+            nudge_frame = tk.Frame(main_frame, bg=nudge_bg, relief=tk.FLAT, bd=0)
+            nudge_frame.pack(fill=tk.X, pady=15, ipadx=10, ipady=10)
+            
+            tk.Label(nudge_frame, text="💡 AI Health Assistant", 
+                    font=("Arial", 11, "bold"), bg=nudge_bg, fg=nudge_title_color).pack(anchor="w")
+            
+            tk.Label(nudge_frame, text=nudge_advice, 
+                    font=("Arial", 10), bg=nudge_bg, fg=nudge_text_color, justify="left", wraplength=360).pack(anchor="w", pady=(5,0))
+        # ---------------------------
+        
+        tk.Button(main_frame, text=self.i18n.get("journal.close"), 
                  command=result_window.destroy, 
-                 font=("Arial", 12)).pack(pady=20)
+                 font=("Arial", 11), bg="#ddd", relief=tk.FLAT, padx=15).pack(pady=20)
     
     def view_past_entries(self):
         """View past journal entries"""
@@ -258,6 +334,17 @@ class JournalFeature:
         
         tk.Label(entries_window, text=self.i18n.get("journal.emotional_journey"), 
                 font=("Arial", 16, "bold")).pack(pady=10)
+
+        def open_history_view():
+            from app.ui.daily_view import DailyHistoryView
+            top = tk.Toplevel(self.parent_root)
+            # Pass self.app if available, otherwise fallback to parent_root or self for colors
+            app_ref = self.app if self.app else self.parent_root
+            DailyHistoryView(top, app_ref, self.username)
+            entries_window.destroy()
+
+        tk.Button(entries_window, text="📅 Calendar View", command=open_history_view,
+                 bg=self.app.colors.get("secondary", "#8B5CF6"), fg="white", relief="flat", padx=10).pack(pady=5)
         
         # Create scrollable text area
         text_area = scrolledtext.ScrolledText(entries_window, width=80, height=25, 
@@ -305,7 +392,112 @@ class JournalFeature:
         """Open analytics dashboard"""
         try:
             from app.ui.dashboard import AnalyticsDashboard
-            dashboard = AnalyticsDashboard(self.journal_window, self.username)
+            colors = getattr(self.app, 'colors', None)
+            theme = self.app.settings.get("theme", "light") if self.app else "light"
+            dashboard = AnalyticsDashboard(self.journal_window, self.username, colors=colors, theme=theme)
             dashboard.open_dashboard()
         except ImportError:
             messagebox.showerror("Error", "Dashboard feature not available")
+
+    # ========== HEALTH INSIGHTS & NUDGES (PR 1.6) ==========
+    def generate_health_insights(self):
+        """Check for recent trends and return comprehensive health insights"""
+        conn = get_session().get_bind().connect()
+        insight_text = "Tracking your vitals helps discover patterns! Keep logging daily." # Default
+        try:
+            # Query last 3 days
+            three_days_ago = (datetime.now() - timedelta(days=3)).strftime("%Y-%m-%d")
+            
+            query = """
+                SELECT sleep_hours, sleep_quality, energy_level, work_hours 
+                FROM journal_entries 
+                WHERE username = :username 
+                AND entry_date >= :date
+                ORDER BY entry_date DESC
+            """
+            result = conn.execute(text(query), # Handle raw SQL
+                                parameters={"username": self.username, "date": three_days_ago})
+            
+            # SQLAlchemy 1.4/2.0+ compatibility for raw execution
+            if hasattr(result, 'mappings'):
+                rows = result.mappings().all()
+            else:
+                rows = result.fetchall()
+            
+            if not rows:
+                return "Start tracking your sleep and energy to get personalized health insights!"
+            
+            # Data extraction
+            sleeps = []
+            qualities = []
+            energies = []
+            works = []
+            
+            for r in rows:
+                if hasattr(r, 'sleep_hours'): # Key access
+                    sleeps.append(r.sleep_hours)
+                    qualities.append(r.sleep_quality)
+                    energies.append(r.energy_level)
+                    works.append(r.work_hours)
+                else: # Tuple access
+                    sleeps.append(r[0])
+                    qualities.append(r[1])
+                    if len(r) > 2: energies.append(r[2])
+                    if len(r) > 3: works.append(r[3])
+            
+            sleeps = [s for s in sleeps if s is not None]
+            qualities = [q for q in qualities if q is not None]
+            energies = [e for e in energies if e is not None]
+            works = [w for w in works if w is not None]
+            
+            # Calculate Averages
+            avg_sleep = sum(sleeps) / len(sleeps) if sleeps else 0
+            avg_quality = sum(qualities) / len(qualities) if qualities else 0
+            avg_energy = sum(energies) / len(energies) if energies else 0
+            avg_work = sum(works) / len(works) if works else 0
+            
+            insights = []
+            
+            # --- Logic Rule Engine ---
+            
+            # 1. Sleep Logic (Duration & Quality)
+            if avg_sleep < 6.0:
+                insights.append("🌙 You've been averaging less than 6 hours of sleep.")
+            elif avg_sleep >= 7.5 and avg_quality >= 7:
+                insights.append("🛌 You're getting great sleep quantity and quality!")
+            
+            # Quality specific
+            if qualities and avg_quality < 5:
+                insights.append("📉 Your sleep quality is reported low. Ensure your room is cool and dark.")
+            elif sleeps and qualities and avg_sleep > 8 and avg_quality < 5:
+                insights.append("🤔 You're sleeping long hours but quality is low. This might indicate restless sleep.")
+
+            # 2. Energy Logic
+            if len(energies) >= 2 and all(e <= 4 for e in energies[:3]):
+                insights.append("🔋 Warning: Consistent low energy detected. Prevent burnout by taking a break.")
+            elif avg_energy >= 8.0:
+                insights.append("⚡ You're continuously reporting high energy!")
+            elif len(energies) >= 2 and energies[0] > energies[-1] + 2:
+                 insights.append("🚀 Energy trend: Improving compared to recent days.")
+
+            # 3. Work Logic
+            if avg_work > 10:
+                 insights.append("💼 Heavy Workload Alert: Averaging >10h/day. Don't forget to disconnect.")
+            elif avg_work > 8:
+                 insights.append("👔 You're having a standard productive work week.")
+            elif avg_work < 2 and avg_energy > 5:
+                 insights.append("🧘 Low work hours + High energy = Great recovery period!")
+
+            # Construct final message
+            if insights:
+                insight_text = " ".join(insights)
+            else:
+                insight_text = "Your health metrics are stable. Consistent tracking discovers hidden patterns!"
+                
+        except Exception as e:
+            logging.error(f"Insight generation failed: {e}")
+            insight_text = "Could not generate insights at this moment."
+        finally:
+            conn.close()
+            
+        return insight_text

@@ -186,7 +186,7 @@ class SoulSenseApp:
 
         # Initialize Journal Feature
         if JournalFeature:
-            self.journal_feature = JournalFeature(self.root)
+            self.journal_feature = JournalFeature(self.root, self)
         else:
             self.journal_feature = None
             logging.warning("JournalFeature disabled: Module could not be imported")
